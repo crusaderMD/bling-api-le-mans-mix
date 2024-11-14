@@ -11,7 +11,7 @@ namespace BlingApiDailyConsult.Infrastructure
     internal class BlingDataFetcher
     {
         // URL da API Bling com os parâmetros para consulta
-        private const string ApiUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?pagina=1&limite=100&dataInicial=2024-09-01&dataFinal=2024-09-30";
+        private const string ApiUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?pagina=1&limite=100&dataInicial=2024-01-01&dataFinal=2024-11-14";
 
         // String de conexão com o banco de dados MySQL
         private readonly string ConnectionString;
@@ -48,7 +48,7 @@ namespace BlingApiDailyConsult.Infrastructure
             using (HttpClient client = new HttpClient())
             {
                 // Adiciona o cabeçalho de autorização com o token de acesso
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer 8fff4d7369eeafba272958db2801b2f2e8150fc9");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer b147cdbf157da1da79980492ba8ff2e54cb1f346");
 
                 // Realiza a requisição GET para a API
                 HttpResponseMessage response = await client.GetAsync(url);

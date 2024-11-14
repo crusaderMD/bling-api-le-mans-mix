@@ -65,7 +65,7 @@ namespace BlingOAuthApi.Controllers
 
                 if (tokenInfo == null)
                 {
-                    //return BadRequest("TOKEN NULO: Não foi possível deserializar as informações do token.");
+                    return BadRequest("TOKEN NULO: Não foi possível deserializar as informações do token.");
                 }
                 
                 // Validações básicas no token

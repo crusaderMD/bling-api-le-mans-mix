@@ -32,9 +32,8 @@ namespace BlingApiDailyConsult.Infrastructure
                 var response = await client.PostAsync(tokenUrl, requestData);
                 var responseContent = await response.Content.ReadAsStringAsync();
 
-                // Aqui você pode desserializar o JSON de resposta para acessar o access_token
                 Console.WriteLine("Token: " + responseContent);
-                return responseContent; //responseContent; // Retorna a resposta com o access_token
+                return responseContent; //responseContent Retorna a resposta com o access_token
             }
         }
         public static async Task<string> RefreshAccessTokenAsync(string refreshToken)

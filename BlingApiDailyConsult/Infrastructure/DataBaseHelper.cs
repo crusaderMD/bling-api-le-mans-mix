@@ -1,6 +1,7 @@
 ﻿using BlingApiDailyConsult.Entities;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Mysqlx;
 
 namespace BlingApiDailyConsult.Infrastructure
 {
@@ -12,8 +13,6 @@ namespace BlingApiDailyConsult.Infrastructure
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-
-
 
         /// <summary>
         /// Insere ou atualiza um token no banco de dados.
@@ -62,6 +61,53 @@ namespace BlingApiDailyConsult.Infrastructure
             {
                 throw new Exception($"SQL Insert or Update ERROR: + {ex.Message}");
             }
+        }
+
+        public TokenInfo GetTokenFromDatabase()
+        {
+            TokenInfo tokenInfo = null;
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    string sql = @"
+                        SELECT Access_Token, Expires_In, Token_Type, Scope, Refresh_Token, Created_at
+                        FROM tokens
+                        WHERE created_at = (SELECT MAX(created_at) FROM tokens);";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                tokenInfo = new TokenInfo
+                                {
+                                    AccessToken = reader.GetString(reader.GetOrdinal("Access_Token")),
+                                    ExpiresIn = reader.GetInt32(reader.GetOrdinal("Expires_In")),
+                                    TokenType = reader.GetString(reader.GetOrdinal("Token_Type")),
+                                    Scope = reader.GetString(reader.GetOrdinal("Scope")),
+                                    RefreshToken = reader.GetString(reader.GetOrdinal("Refresh_Token")),
+                                    DatetimeNowUtc = reader.GetDateTime(reader.GetOrdinal("Created_at"))
+                                };
+                            }
+                            if (tokenInfo == null)
+                            {
+                                throw new InvalidOperationException("Nenhum token foi encontrado na base de dados. Por favor, insira um token inicial usando o fluxo de autenticação.");
+                            }
+                        }
+                    }
+                }
+                
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception($"Erro ao buscar token do banco de dados: {ex.Message}", ex);
+            }
+
+            return tokenInfo;
         }
     }
 }

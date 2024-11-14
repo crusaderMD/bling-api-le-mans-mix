@@ -14,17 +14,32 @@ namespace BlingApiDailyConsult
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
+            // Instanciar o DataBaseHelper com a configuração carregada
+            var dataBaseHelper = new DataBaseHelper(configuration);
+
             // Criando a instância de BlingDataFetcher
             //var blingDataFetcher = new BlingDataFetcher(configuration);
 
             // Chamando o método que fará a requisição e salvará os dados no banco
-            // await blingDataFetcher.FetchAndStoreData();
+            //await blingDataFetcher.FetchAndStoreData();
 
             // Confirmando que os dados foram armazenados
             // Console.WriteLine("Dados obtidos e armazenados no banco com sucesso!");
 
-            OAuthHelperGetAuthCode.RedirectToAuthUrl();
+            //Testando a chamada para obter o authorization code
+            //OAuthHelperGetAuthCode.RedirectToAuthUrl();
             
+            TokenManager tokenManager = new TokenManager(dataBaseHelper);
+            try
+            {
+                string validToken = await tokenManager.GetValidAccessTokenAsync();
+                Console.WriteLine($"Valid Token: {validToken}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex.Message}");
+            }
+
         }
     }
 }
