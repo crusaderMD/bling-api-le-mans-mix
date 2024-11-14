@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlingApiDailyConsult", "BlingApiDailyConsult\BlingApiDailyConsult.csproj", "{0C7984FD-65DB-407F-9AA7-00348D74AE03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlingOAuthApi", "BlingOAuthApi\BlingOAuthApi.csproj", "{89846869-659F-48EF-B8D2-E0DE62B803A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C7984FD-65DB-407F-9AA7-00348D74AE03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C7984FD-65DB-407F-9AA7-00348D74AE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C7984FD-65DB-407F-9AA7-00348D74AE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C7984FD-65DB-407F-9AA7-00348D74AE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89846869-659F-48EF-B8D2-E0DE62B803A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89846869-659F-48EF-B8D2-E0DE62B803A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89846869-659F-48EF-B8D2-E0DE62B803A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89846869-659F-48EF-B8D2-E0DE62B803A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {98E01C0B-E2AA-460A-8F8E-17F06C40BFD4}
+	EndGlobalSection
+EndGlobal
