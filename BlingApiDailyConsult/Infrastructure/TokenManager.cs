@@ -30,7 +30,7 @@ namespace BlingApiDailyConsult.Infrastructure
             if (TokenHelper.IsTokenExpired(tokenInfo.DatetimeNowUtc, tokenInfo.ExpiresIn))
             {
                 // Se o Refresh_Token também tiver expirado, reinicia o processo de autenticação
-                if (TokenHelper.IsTokenExpired(tokenInfo.DatetimeNowUtc, RefreshTokenValidityDays))
+                if (TokenHelper.IsRefreshTokenExpired(tokenInfo.DatetimeNowUtc, RefreshTokenValidityDays))
                 {
                     // O refresh token expirou, logo, inicia o processo de autenticação
                     OAuthHelperGetAuthCode.RedirectToAuthUrl(); // Redireciona o usuário para obter o código de autorização
@@ -41,7 +41,7 @@ namespace BlingApiDailyConsult.Infrastructure
                 // O access_token expirou, mas o refresh_token ainda é válido
                 string refreshAccessToken = await OAuthHelperGetTokens.RefreshAccessTokenAsync(tokenInfo.RefreshToken);
 
-                TokenInfo newTokenInfo = JsonSerializer.Deserialize<TokenInfo>(refreshAccessToken);
+                TokenInfo? newTokenInfo = JsonSerializer.Deserialize<TokenInfo>(refreshAccessToken);
 
                 if (newTokenInfo == null || string.IsNullOrEmpty(newTokenInfo.AccessToken) || string.IsNullOrEmpty(newTokenInfo.RefreshToken))
                 {

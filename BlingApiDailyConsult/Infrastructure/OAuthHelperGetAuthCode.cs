@@ -14,7 +14,7 @@ namespace BlingApiDailyConsult.Infrastructure
         {
             string clientId = "95816cb9fddf7d246bf47504382c7de6267abd33";  // Fornecido na Aplicacao no Bling
             string state = "1213141516171819";  // Pode ser um valor aleatório
-            string redirectUri = "http://localhost:3000/callback";  // URL de redirecionamento definida ba Aplicacao nbo Bling
+            string redirectUri = "http://localhost:3000/callback";  // URL de redirecionamento definida ba Aplicacao no Bling
 
             string authorizationUrl = $"https://bling.com.br/Api/v3/oauth/authorize?response_type=code&client_id={clientId}&state={state}&redirect_uri={redirectUri}";
 

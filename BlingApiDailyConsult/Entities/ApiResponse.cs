@@ -10,6 +10,6 @@ namespace BlingApiDailyConsult.Entities
     public class ApiResponse
     {
         [JsonPropertyName("data")]
-        public List<Pedido> Pedidos { get; set; }
+        public List<Pedido>? Pedidos { get; set; }
     }
 }

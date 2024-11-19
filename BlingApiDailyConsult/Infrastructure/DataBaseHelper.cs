@@ -109,5 +109,62 @@ namespace BlingApiDailyConsult.Infrastructure
 
             return tokenInfo;
         }
+
+        // Insere ou atualiza uma lista de pedidos no banco de dados
+        public void SavePedidos(IEnumerable<Pedido> pedidos)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    foreach (var pedido in pedidos)
+                    {
+                        InsertOrUpdatePedido(pedido, conn);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception($"Erro ao inserir ou atualizar o pedido no banco de dados: {ex.Message}", ex);
+            }
+        }
+
+        // Método para inserir um pedido no banco de dados
+        private void InsertOrUpdatePedido(Pedido pedido, MySqlConnection conn)
+        {
+            // Comando SQL para inserir os dados do pedido na tabela de pedidos do banco
+            string sql = @"
+                INSERT INTO pedidos 
+                    (id, numero, data, total_produtos, status_id, status_valor, cliente_id, cliente_nome) 
+                VALUES 
+                    (@id, @numero, @data, @total_produtos, @status_id, @status_valor, @cliente_id, @cliente_nome)
+                ON DUPLICATE KEY UPDATE 
+                    numero = VALUES(numero),
+                    data = VALUES(data),
+                    total_produtos = VALUES(total_produtos),
+                    status_id = VALUES(status_id),
+                    status_valor = VALUES(status_valor),
+                    cliente_id = VALUES(cliente_id),
+                    cliente_nome = VALUES(cliente_nome);";
+
+            // Cria um comando SQL com o comando definido acima e a conexão com o banco
+            using (var cmd = new MySqlCommand(sql, conn))
+            {
+                // Adiciona os parâmetros ao comando SQL para evitar SQL Injection
+                cmd.Parameters.AddWithValue("@id", pedido.Id);
+                cmd.Parameters.AddWithValue("@numero", pedido.Numero);
+                cmd.Parameters.AddWithValue("@data", pedido.Data);
+                cmd.Parameters.AddWithValue("@total_produtos", pedido.TotalProdutos);
+                cmd.Parameters.AddWithValue("@status_id", pedido.Situacao.Id);
+                cmd.Parameters.AddWithValue("@status_valor", pedido.Situacao.Valor);
+                cmd.Parameters.AddWithValue("@cliente_id", pedido.Contato.Id);
+                cmd.Parameters.AddWithValue("@cliente_nome", pedido.Contato.Nome);
+
+                // Executa o comando no banco de dados
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

@@ -13,12 +13,12 @@ namespace BlingApiDailyConsult.Entities
         public long Id { get; set; }
 
         [JsonPropertyName("nome")]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [JsonPropertyName("tipoPessoa")]
-        public string TipoPessoa { get; set; }
+        public string? TipoPessoa { get; set; }
 
         [JsonPropertyName("numeroDocumento")]
-        public string NumeroDocumento { get; set; }
+        public string? NumeroDocumento { get; set; }
     }
 }

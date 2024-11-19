@@ -1,4 +1,5 @@
-﻿using BlingApiDailyConsult.Infrastructure;
+﻿using BlingApiDailyConsult.Entities;
+using BlingApiDailyConsult.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
@@ -17,29 +18,28 @@ namespace BlingApiDailyConsult
             // Instanciar o DataBaseHelper com a configuração carregada
             var dataBaseHelper = new DataBaseHelper(configuration);
 
-            // Criando a instância de BlingDataFetcher
-            //var blingDataFetcher = new BlingDataFetcher(configuration);
+            // Instanciar o TokenManager injetando o DataBaseHelper
+            var tokenManager = new TokenManager(dataBaseHelper);
 
-            // Chamando o método que fará a requisição e salvará os dados no banco
-            //await blingDataFetcher.FetchAndStoreData();
+            //Instanciar o BlingDataFetcher injetando o TokenManager
+            var blingDataFetcher = new BlingDataFetcher(tokenManager);
 
-            // Confirmando que os dados foram armazenados
-            // Console.WriteLine("Dados obtidos e armazenados no banco com sucesso!");
-
-            //Testando a chamada para obter o authorization code
-            //OAuthHelperGetAuthCode.RedirectToAuthUrl();
-            
-            TokenManager tokenManager = new TokenManager(dataBaseHelper);
             try
             {
-                string validToken = await tokenManager.GetValidAccessTokenAsync();
-                Console.WriteLine($"Valid Token: {validToken}");
+                //Armazena os pedidos
+                Pedido[] pedidos = await blingDataFetcher.FetchPedidosAsync();
+
+                //Salva os pedidos no BD
+                dataBaseHelper.SavePedidos(pedidos);
+
+                // Confirmando que os dados foram armazenados
+                Console.WriteLine("Dados obtidos e armazenados no banco com sucesso!");
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro: {ex.Message}");
             }
-
         }
     }
 }
