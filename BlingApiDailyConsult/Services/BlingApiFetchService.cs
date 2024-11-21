@@ -2,11 +2,11 @@
 
 namespace BlingApiDailyConsult.Services
 {
-    public class BlingApiFetchService
+    public class BlingApiFetchService<T>
     {
-        private readonly IEnumerable<IBlingApiFetcher> _fetchers;
+        private readonly IEnumerable<IBlingApiFetcher<T>> _fetchers;
 
-        public BlingApiFetchService(IEnumerable<IBlingApiFetcher> fetchers)
+        public BlingApiFetchService(IEnumerable<IBlingApiFetcher<T>> fetchers)
         {
             _fetchers = fetchers;
         }

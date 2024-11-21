@@ -3,26 +3,27 @@ using MySql.Data.MySqlClient;
 using BlingApiDailyConsult.Entities;
 using BlingApiDailyConsult;
 using Microsoft.Extensions.Configuration;
+using BlingApiDailyConsult.Interfaces;
 
 // Namespace responsável pelas interações com a API Bling e o banco de dados
 namespace BlingApiDailyConsult.Infrastructure
 {
     // Classe responsável por buscar os pedidos da API Bling e armazená-los no banco de dados
-    internal class BlingDataFetcher
+    internal class BlingPedidoFetcher : IBlingApiFetcher<Pedido[]>
     {
         // URL da API Bling com os parâmetros para consulta de pedidos por periodo
-        private const string ApiUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?pagina=1&limite=100&dataInicial=2024-01-01&dataFinal=2024-11-20";
+        private const string ApiUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?&dataInicial=2024-01-01&dataFinal=2024-11-31&pagina=1&limite=100";
 
         // String de conexão com o banco de dados MySQL
         private readonly TokenManager _tokenManager;
 
-        public BlingDataFetcher(TokenManager tokenManager)
+        public BlingPedidoFetcher(TokenManager tokenManager)
         {
             _tokenManager = tokenManager ?? throw new ArgumentNullException(nameof(tokenManager)); 
         }
 
         // Método para obter pedidos da API Bling
-        public async Task<Pedido[]> FetchPedidosAsync()
+        public async Task<Pedido[]> ExecuteAsync()
         {
             // Recebe um token válido
             string validToken = await _tokenManager.GetValidAccessTokenAsync();
@@ -57,7 +58,7 @@ namespace BlingApiDailyConsult.Infrastructure
                 }
 
                 // Deserializa o JSON para o objeto ApiResponse, que contém a lista de pedidos
-                var apiResponse = JsonSerializer.Deserialize<ApiResponse>(jsonResponse);
+                var apiResponse = JsonSerializer.Deserialize<PedidoResponse>(jsonResponse);
 
                 // Verifica se os pedidos foram encontrados na resposta da API
                 if (apiResponse?.Pedidos == null || !apiResponse.Pedidos.Any())

@@ -22,12 +22,12 @@ namespace BlingApiDailyConsult
             var tokenManager = new TokenManager(dataBaseHelper);
 
             //Instanciar o BlingDataFetcher injetando o TokenManager
-            var blingDataFetcher = new BlingDataFetcher(tokenManager);
+            var blingPedidoFetcher = new BlingPedidoFetcher(tokenManager);
 
             try
             {
                 //Armazena os pedidos
-                Pedido[] pedidos = await blingDataFetcher.FetchPedidosAsync();
+                Pedido[] pedidos = await blingPedidoFetcher.ExecuteAsync();
 
                 //Salva os pedidos no BD
                 dataBaseHelper.SavePedidos(pedidos);

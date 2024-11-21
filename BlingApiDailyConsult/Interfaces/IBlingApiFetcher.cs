@@ -1,7 +1,7 @@
 ﻿namespace BlingApiDailyConsult.Interfaces
 {
-    public interface IBlingApiFetcher
+    public interface IBlingApiFetcher<T>
     {
-        Task ExecuteAsync();
+        Task<T> ExecuteAsync();
     }
 }

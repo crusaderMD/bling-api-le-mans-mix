@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlingApiDailyConsult.Entities
 {
-    public class ApiResponse
+    public class PedidoResponse
     {
         [JsonPropertyName("data")]
         public List<Pedido>? Pedidos { get; set; }
