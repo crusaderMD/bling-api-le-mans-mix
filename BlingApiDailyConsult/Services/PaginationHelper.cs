@@ -1,4 +1,6 @@
-﻿namespace BlingApiDailyConsult.Services
+﻿using System.Security.Policy;
+
+namespace BlingApiDailyConsult.Services
 {
     public class PaginationHelper
     {
@@ -10,11 +12,15 @@
 
             while (hasMorePages)
             {
-                string paginetedUrl = $"{baseUrl}&pagina={currentPage}";
+                string paginetedUrl = $"{baseUrl}&pagina={currentPage}&limite=100";
+
+                Console.WriteLine($"Requisitando URL: {paginetedUrl}");
 
                 var pageResults = await fetchPageData(paginetedUrl);
 
-                if (pageResults != null && pageResults.Any())
+                await Task.Delay(500); // Pausa de 1 segundo antes de buscar a próxima página                
+
+                if (pageResults != null && pageResults.Count != 0)
                 {
                     allResults.AddRange(pageResults);
                     currentPage++;
@@ -22,7 +28,7 @@
                 else
                 {
                     hasMorePages = false;
-                }                
+                }               
             }
             return allResults;
         }

@@ -4,6 +4,8 @@ using BlingApiDailyConsult.Entities;
 using BlingApiDailyConsult;
 using Microsoft.Extensions.Configuration;
 using BlingApiDailyConsult.Interfaces;
+using BlingApiDailyConsult.Services;
+using System.Security.Policy;
 
 // Namespace responsável pelas interações com a API Bling e o banco de dados
 namespace BlingApiDailyConsult.Infrastructure
@@ -12,7 +14,7 @@ namespace BlingApiDailyConsult.Infrastructure
     internal class BlingPedidoFetcher : IBlingApiFetcher<Pedido[]>
     {
         // URL da API Bling com os parâmetros para consulta de pedidos por periodo
-        private const string ApiUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?&dataInicial=2024-01-01&dataFinal=2024-11-31&pagina=1&limite=100";
+        private const string baseUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?&dataInicial=2023-01-01&dataFinal=2023-12-31";
 
         // String de conexão com o banco de dados MySQL
         private readonly TokenManager _tokenManager;
@@ -25,17 +27,22 @@ namespace BlingApiDailyConsult.Infrastructure
         // Método para obter pedidos da API Bling
         public async Task<Pedido[]> ExecuteAsync()
         {
-            // Recebe um token válido
-            string validToken = await _tokenManager.GetValidAccessTokenAsync();
+            // Instancia a classe PaginationHelper que auxilia na iteração das paginas
+            var paginationHelper = new PaginationHelper();
 
-            // Cria uma instância do HttpClient para fazer a requisição HTTP
-            using (HttpClient client = new HttpClient())
+            return (await paginationHelper.FetchAllPagesAsync<Pedido>(baseUrl, async (paginatedUrl) =>
             {
+                // Recebe um token válido
+                string validToken = await _tokenManager.GetValidAccessTokenAsync();
+
+                // Cria uma instância do HttpClient para fazer a requisição HTTP
+                using var client = new HttpClient();
+
                 // Adiciona o cabeçalho de autorização com o token de acesso
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + validToken);
 
                 // Realiza a requisição GET para a API
-                HttpResponseMessage response = await client.GetAsync(ApiUrl);
+                HttpResponseMessage response = await client.GetAsync(paginatedUrl);
 
                 // Verifica se a resposta da API foi bem-sucedida
                 if (!response.IsSuccessStatusCode)
@@ -58,17 +65,12 @@ namespace BlingApiDailyConsult.Infrastructure
                 }
 
                 // Deserializa o JSON para o objeto ApiResponse, que contém a lista de pedidos
-                var apiResponse = JsonSerializer.Deserialize<PedidoResponse>(jsonResponse);
-
-                // Verifica se os pedidos foram encontrados na resposta da API
-                if (apiResponse?.Pedidos == null || !apiResponse.Pedidos.Any())
-                {
-                    throw new Exception("Pedidos não encontrados na resposta da API.");
-                }
+                var apiPedidoResponse = JsonSerializer.Deserialize<PedidoResponse>(jsonResponse);                
 
                 // Retorna a lista de pedidos deserializada
-                return apiResponse.Pedidos.ToArray();
+                return apiPedidoResponse?.Pedidos?.ToList() ?? new List<Pedido>();               
             }
+            )).ToArray();
         }        
     }
 }
