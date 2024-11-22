@@ -148,7 +148,7 @@ namespace BlingApiDailyConsult.Infrastructure
                     cliente_id = VALUES(cliente_id),
                     cliente_nome = VALUES(cliente_nome);";
 
-            // Cria um comando SQL com o comando definido acima e a conexão com o banco
+            // Cria um comando SQL com o comando definido acima e a conexão com o banco de dados
             using (var cmd = new MySqlCommand(sql, conn))
             {
                 // Adiciona os parâmetros ao comando SQL para evitar SQL Injection
@@ -160,6 +160,64 @@ namespace BlingApiDailyConsult.Infrastructure
                 cmd.Parameters.AddWithValue("@status_valor", pedido.Situacao.Valor);
                 cmd.Parameters.AddWithValue("@cliente_id", pedido.Contato.Id);
                 cmd.Parameters.AddWithValue("@cliente_nome", pedido.Contato.Nome);
+
+                // Executa o comando no banco de dados
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SaveProdutos(IEnumerable<Produto> produtos)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    foreach (var produto in produtos)
+                    {
+
+                        InsertOrUpdateProduto(produto, conn);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception($"Erro ao inserir ou atualizar o produto no banco de dados: {ex.Message}", ex);
+            }
+        }
+
+        private void InsertOrUpdateProduto(Produto produto, MySqlConnection conn)
+        {
+            // Comando SQL para inserir os dados do produto na tabela de produtos do banco de dados
+            string sql = @"
+                INSERT INTO produtos 
+                    (id, nome, codigo, preco, preco_custo, saldo_total_estoque, tipo, situacao, formato) 
+                VALUES 
+                    (@id, @nome, @codigo, @preco, @preco_custo, @saldo_total_estoque, @tipo, @situacao, @formato)
+                ON DUPLICATE KEY UPDATE 
+                    nome = VALUES(nome),
+                    codigo = VALUES(codigo),
+                    preco = VALUES(preco),
+                    preco_custo = VALUES(preco_custo),
+                    saldo_total_estoque = VALUES(saldo_total_estoque),
+                    tipo = VALUES(tipo),
+                    situacao = VALUES(situacao),
+                    formato = VALUES(formato);";
+
+            // Cria um comando SQL com o comando definido acima e a conexão com o banco
+            using (var cmd = new MySqlCommand(sql, conn))
+            {
+                // Adiciona os parâmetros ao comando SQL para evitar SQL Injection
+                cmd.Parameters.AddWithValue("@id", produto.Id);
+                cmd.Parameters.AddWithValue("@nome", produto.Nome);
+                cmd.Parameters.AddWithValue("@codigo", produto.Codigo);
+                cmd.Parameters.AddWithValue("@preco", produto.Preco);
+                cmd.Parameters.AddWithValue("@preco_custo", produto.PrecoCusto);
+                cmd.Parameters.AddWithValue("@saldo_total_estoque", produto.Estoque?.SaldoTotal);
+                cmd.Parameters.AddWithValue("@tipo", produto.Tipo);
+                cmd.Parameters.AddWithValue("@situacao", produto.Situacao);
+                cmd.Parameters.AddWithValue("@formato", produto.Formato);
 
                 // Executa o comando no banco de dados
                 cmd.ExecuteNonQuery();
