@@ -1,6 +1,4 @@
-﻿using System.Security.Policy;
-
-namespace BlingApiDailyConsult.Services
+﻿namespace BlingApiDailyConsult.Services
 {
     public class PaginationHelper
     {
@@ -14,11 +12,12 @@ namespace BlingApiDailyConsult.Services
             {
                 string paginetedUrl = $"{baseUrl}&pagina={currentPage}&limite=100";
 
+                // Exibe a URL atual para depuração
                 Console.WriteLine($"Requisitando URL: {paginetedUrl}");
 
                 var pageResults = await fetchPageData(paginetedUrl);
 
-                await Task.Delay(500); // Pausa de 1 segundo antes de buscar a próxima página                
+                await Task.Delay(500); // Pausa de meio segundo antes de buscar a próxima página                
 
                 if (pageResults != null && pageResults.Count != 0)
                 {

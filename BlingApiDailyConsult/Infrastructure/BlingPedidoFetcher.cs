@@ -14,7 +14,7 @@ namespace BlingApiDailyConsult.Infrastructure
     internal class BlingPedidoFetcher : IBlingApiFetcher<Pedido[]>
     {
         // URL da API Bling com os parâmetros para consulta de pedidos por periodo
-        private const string baseUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?&dataInicial=2023-01-01&dataFinal=2023-12-31";
+        private const string baseUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas?";
 
         // String de conexão com o banco de dados MySQL
         private readonly TokenManager _tokenManager;
@@ -30,7 +30,12 @@ namespace BlingApiDailyConsult.Infrastructure
             // Instancia a classe PaginationHelper que auxilia na iteração das paginas
             var paginationHelper = new PaginationHelper();
 
-            return (await paginationHelper.FetchAllPagesAsync<Pedido>(baseUrl, async (paginatedUrl) =>
+            // Instancia a classe DateRequestHelper
+            var dateRequestHelper = new DateRequestHelper();
+
+            string dateFilteredUrl = baseUrl + dateRequestHelper.GetDateQueryString();
+
+            return (await paginationHelper.FetchAllPagesAsync<Pedido>(dateFilteredUrl, async (paginatedUrl) =>
             {
                 // Recebe um token válido
                 string validToken = await _tokenManager.GetValidAccessTokenAsync();
@@ -65,10 +70,10 @@ namespace BlingApiDailyConsult.Infrastructure
                 }
 
                 // Deserializa o JSON para o objeto ApiResponse, que contém a lista de pedidos
-                var apiPedidoResponse = JsonSerializer.Deserialize<PedidoResponse>(jsonResponse);                
+                var apiPedidoResponse = JsonSerializer.Deserialize<ApiResponse<Pedido>>(jsonResponse);                
 
                 // Retorna a lista de pedidos deserializada
-                return apiPedidoResponse?.Pedidos?.ToList() ?? new List<Pedido>();               
+                return apiPedidoResponse?.Data?.ToList() ?? new List<Pedido>();               
             }
             )).ToArray();
         }        
