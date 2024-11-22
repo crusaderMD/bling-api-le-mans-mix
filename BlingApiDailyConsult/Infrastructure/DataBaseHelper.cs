@@ -1,7 +1,6 @@
 ﻿using BlingApiDailyConsult.Entities;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-using Mysqlx;
 
 namespace BlingApiDailyConsult.Infrastructure
 {

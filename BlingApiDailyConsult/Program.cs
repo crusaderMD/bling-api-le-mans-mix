@@ -21,19 +21,25 @@ namespace BlingApiDailyConsult
             // Instanciar o TokenManager injetando o DataBaseHelper
             var tokenManager = new TokenManager(dataBaseHelper);
 
-            //Instanciar o BlingDataFetcher injetando o TokenManager
+            //Instanciar o BlingPedidoFetcher injetando o TokenManager
             var blingPedidoFetcher = new BlingPedidoFetcher(tokenManager);
+
+            // Instanciar o BlingProdutoFetcher
+            var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
 
             try
             {
                 //Armazena os pedidos
-                Pedido[] pedidos = await blingPedidoFetcher.ExecuteAsync();
+                //Pedido[] pedidos = await blingPedidoFetcher.ExecuteAsync();
 
                 //Salva os pedidos no BD
-                dataBaseHelper.SavePedidos(pedidos);
+                //dataBaseHelper.SavePedidos(pedidos);
 
                 // Confirmando que os dados foram armazenados
-                Console.WriteLine("Dados obtidos e armazenados no banco com sucesso!");
+                //Console.WriteLine("Dados obtidos e armazenados no banco com sucesso!");
+
+                //Armazena os produtos
+                Produto[] produtos = await blingProdutoFetcher.ExecuteAsync();
 
             }
             catch (Exception ex)
