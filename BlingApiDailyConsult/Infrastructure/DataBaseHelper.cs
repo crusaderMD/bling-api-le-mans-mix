@@ -64,7 +64,7 @@ namespace BlingApiDailyConsult.Infrastructure
 
         public TokenInfo GetTokenFromDatabase()
         {
-            TokenInfo tokenInfo = null;
+            TokenInfo? tokenInfo = null;
             try
             {
                 using (var conn = new MySqlConnection(_connectionString))
@@ -99,7 +99,7 @@ namespace BlingApiDailyConsult.Infrastructure
                         }
                     }
                 }
-                
+
             }
             catch (MySqlException ex)
             {
@@ -223,5 +223,130 @@ namespace BlingApiDailyConsult.Infrastructure
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public List<string> GetPedidoIdFromDataBase()
+        {
+            List<string> pedidosIdList = new List<string>();
+
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                string sql = @"SELECT id FROM pedidos";
+
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            pedidosIdList.Add(reader["Id"].ToString());
+                        }
+                    }
+                }
+            }
+            return pedidosIdList;
+        }
+
+        public void SavePedidoItens(Dictionary<string, List<Item>> pedidos)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    foreach (var pedido in pedidos)
+                    {
+                        foreach (var item in pedido.Value)
+                        {
+                            // Apenas para debugar
+                            Console.WriteLine($"Pedido: {pedido.Key}, Produto: {item?.Produto?.Id}");
+
+                            InsertOrUpdatePedidoitem(pedido.Key, item, conn);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception($"Erro ao inserir ou atualizar os itens do pedido no banco de dados: {ex.Message}", ex);
+            }
+        }
+
+        private void InsertOrUpdatePedidoitem(string key, Item? item, MySqlConnection conn)
+        {
+            try
+            {
+                Task task = VerifyAndInsertProduto(item.Produto.Id, conn);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex.Message}");
+                Console.WriteLine($"Detalhes: {ex.StackTrace}");
+            }
+
+            // Comando SQL para inserir os dados dos itens do pedido na tabela de pedidos do banco
+            string sql = @"INSERT INTO itens_do_pedido
+                            (pedido_id, produto_id, nome_produto, quantidade, unidade_produto, preco_produto)
+                        VALUES
+                            (@pedido_id, @produto_id, @nome_produto, @quantidade, @unidade_produto, @preco_produto)
+                        ON DUPLICATE KEY UPDATE
+                            produto_id = VALUES(produto_id),
+                            nome_produto = VALUES(nome_produto),
+                            quantidade = VALUES(quantidade),
+                            unidade_produto = VALUES(unidade_produto),
+                            preco_produto = VALUES(preco_produto);";
+            // Cria um comando SQL com o comando definido acima e a conexão com o banco de dados
+            using (var cmd = new MySqlCommand(sql, conn))
+            {
+                // Adiciona os parâmetros ao comando SQL para evitar SQL Injection
+                cmd.Parameters.AddWithValue("@pedido_id", key);
+                cmd.Parameters.AddWithValue("@produto_id", item?.Produto?.Id);
+                cmd.Parameters.AddWithValue("@nome_produto", item?.Descricao);
+                cmd.Parameters.AddWithValue("@quantidade", item?.Quantidade);
+                cmd.Parameters.AddWithValue("@unidade_produto", item?.Unidade);
+                cmd.Parameters.AddWithValue("@preco_produto", item?.Valor);
+
+                // Executa o comando no banco de dados
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private bool ProdutoExist(long ProdutoId, MySqlConnection conn)
+        {
+            try
+            {
+                string sql = @"SELECT COUNT(*) FROM produtos WHERE id = @id";
+
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", ProdutoId);
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao verificar a existência do produto: {ex.Message}");
+                return false; // Considera falso se ocorrer um erro
+            }
+        }
+
+        public async Task VerifyAndInsertProduto(long produtoId, MySqlConnection conn)
+        {
+            if (!ProdutoExist(produtoId, conn))
+            {
+                TokenManager tokenManager = new TokenManager(this);
+                BlingSingleProdutoFetcher singleProdutoFetcher = new BlingSingleProdutoFetcher(tokenManager);
+                var produto = await singleProdutoFetcher.GetSingleProduto(produtoId);
+                if (produto == null)
+                {
+                    Console.WriteLine("Produto nulo!");
+                }
+                Console.WriteLine(produto);
+                InsertOrUpdateProduto(produto, conn);
+            }
+        }
+
     }
 }

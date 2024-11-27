@@ -13,16 +13,19 @@ namespace BlingApiDailyConsult.Entities
         public int Numero { get; set; }
 
         [JsonPropertyName("numeroLoja")]
-        public string NumeroLoja { get; set; }
+        public string? NumeroLoja { get; set; }
 
         [JsonPropertyName("data")]
-        public string Data { get; set; }
+        public string? Data { get; set; }
 
         [JsonPropertyName("dataSaida")]
-        public string DataSaida { get; set; }
+        public string? DataSaida { get; set; }
 
         [JsonPropertyName("dataPrevista")]
-        public string DataPrevista { get; set; }
+        public string? DataPrevista { get; set; }
+
+        [JsonPropertyName("itens")]
+        public List<Item>? Itens { get; set; }
 
         [JsonPropertyName("totalProdutos")]
         public decimal TotalProdutos { get; set; }
@@ -31,12 +34,36 @@ namespace BlingApiDailyConsult.Entities
         public decimal Total { get; set; }
 
         [JsonPropertyName("contato")]
-        public Contato Contato { get; set; }
+        public Contato? Contato { get; set; }
 
         [JsonPropertyName("situacao")]
-        public Situacao Situacao { get; set; }
+        public Situacao? Situacao { get; set; }
 
         [JsonPropertyName("loja")]
-        public Loja Loja { get; set; }
+        public Loja? Loja { get; set; }
+
+        [JsonPropertyName("numeroPedidoCompra")]
+        public string? NumeroPedidoCompra { get; set; }
+
+        [JsonPropertyName("outrasDespesas")]
+        public decimal OutrasDespesas { get; set; }
+
+        [JsonPropertyName("observacoes")]
+        public string? Observacoes { get; set; }
+
+        [JsonPropertyName("observacoesInternas")]
+        public string? ObservacoesInternas { get; set; }
+
+        [JsonPropertyName("desconto")]
+        public Desconto? Desconto { get; set; }
+
+        [JsonPropertyName("categoria")]
+        public Categoria? Categoria { get; set; }
+
+        [JsonPropertyName("notaFiscal")]
+        public NotaFiscal? NotaFiscal { get; set; }
+
+        [JsonPropertyName("tributacao")]
+        public Tributacao? Tributacao { get; set; }
     }
 }
