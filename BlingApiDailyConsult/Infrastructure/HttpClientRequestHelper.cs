@@ -22,8 +22,15 @@ namespace BlingApiDailyConsult.Infrastructure
             // Adiciona o cabeçalho de autorização com o token de acesso
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + validToken);
 
+            // Apagar depois
+            Console.WriteLine(url);
+
             // Realiza a requisição GET para a API
             HttpResponseMessage response = await client.GetAsync(url);
+
+            // apagar depois
+            Console.WriteLine("Resposta:");
+            Console.WriteLine(response); 
 
             // Verifica se a resposta da API foi bem-sucedida
             if (!response.IsSuccessStatusCode)

@@ -7,7 +7,7 @@ namespace BlingApiDailyConsult.Infrastructure
 {
     class BlingSingleProdutoFetcher
     {
-        private const string baseUrl = "https://api.bling.com.br/Api/v3/produtos?";
+        private const string baseUrl = "https://api.bling.com.br/Api/v3/produtos/";
 
         private readonly HttpClientRequestHelper _httpClientRequestHelper;
         public BlingSingleProdutoFetcher(TokenManager tokenManager)
@@ -18,6 +18,9 @@ namespace BlingApiDailyConsult.Infrastructure
         public async Task<Produto> GetSingleProduto(long produtoId)
         {
             string url = baseUrl + produtoId.ToString();
+
+            //apagar depois
+            Console.WriteLine(this + " retorna: " + url);
 
             var apiProdutoResponse = await _httpClientRequestHelper.FetchDataAsync<ApiResponseProduto>(url);
 

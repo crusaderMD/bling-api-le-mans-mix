@@ -1,7 +1,10 @@
 ﻿using BlingApiDailyConsult.Entities;
 using BlingApiDailyConsult.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using System;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace BlingApiDailyConsult
@@ -22,10 +25,10 @@ namespace BlingApiDailyConsult
             var tokenManager = new TokenManager(dataBaseHelper);
 
             // Instanciar o BlingPedidoFetcher injetando o TokenManager
-            var blingPedidoFetcher = new BlingPedidoFetcher(tokenManager);
+            //var blingPedidoFetcher = new BlingPedidoFetcher(tokenManager);
 
             // Instanciar o BlingProdutoFetcher
-            var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
+            //var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
 
             var blingPedidoItemFetcher = new BlingPedidoItemFetcher(tokenManager);
 
@@ -65,17 +68,47 @@ namespace BlingApiDailyConsult
 
                 Dictionary<string, List<Item>> pedidoProdutos = await blingPedidoItemFetcher.FetchItensDosPedidosAsync(pedidoIds);
 
+                /*Dictionary<string, List<Item>> pedidoProdutos = new Dictionary<string, List<Item>>
+                {
+                    {
+                        "123", new List<Item>
+                        {
+                            new Item
+                            {
+                                Id = 1,
+                                Descricao = "produto_test",
+                                Quantidade = 10,
+                                Valor = 10.10M,
+                                Produto = new Produto
+                                {
+                                    Id = 16349367187
+                                }
+                            }
+                        }
+                    }
+                };*/
+
+                dataBaseHelper.SavePedidoItens(pedidoProdutos);
+
                 foreach (var pedidoId in pedidoProdutos)
                 {
                     Console.WriteLine();
                     Console.WriteLine($"Pedido: {pedidoId.Key}");
                     foreach (var item in pedidoId.Value)
                     {
-                        Console.WriteLine($"Produto: {item?.Produto?.Id}, Quantidade: {item?.Quantidade}, Preço: {item?.Valor}");
+                        Console.WriteLine($"Produto: {item?.Produto?.Id}, Descrição: {item?.Descricao}, Quantidade: {item?.Quantidade}, Preço: {item?.Valor}");
                     }                    
                 }
+
+                /*using var client = new HttpClient();
+
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "7090edd2463c6bdf8bc4da2f160be303c94272a9");
+
+                HttpResponseMessage response = await client.GetAsync("https://api.bling.com.br/Api/v3/produtos?15949857484");
+
+                Console.WriteLine(response);*/
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 Console.WriteLine($"Erro: {ex.Message}");
             }

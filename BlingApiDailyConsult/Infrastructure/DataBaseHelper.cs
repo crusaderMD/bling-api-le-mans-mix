@@ -313,7 +313,7 @@ namespace BlingApiDailyConsult.Infrastructure
             }
         }
 
-        private bool ProdutoExist(long ProdutoId, MySqlConnection conn)
+        private static bool ProdutoExist(long ProdutoId, MySqlConnection conn)
         {
             try
             {
@@ -332,19 +332,37 @@ namespace BlingApiDailyConsult.Infrastructure
             }
         }
 
-        public async Task VerifyAndInsertProduto(long produtoId, MySqlConnection conn)
+        private async Task VerifyAndInsertProduto(long produtoId, MySqlConnection conn)
         {
-            if (!ProdutoExist(produtoId, conn))
+            try
             {
-                TokenManager tokenManager = new TokenManager(this);
-                BlingSingleProdutoFetcher singleProdutoFetcher = new BlingSingleProdutoFetcher(tokenManager);
-                var produto = await singleProdutoFetcher.GetSingleProduto(produtoId);
-                if (produto == null)
+                if (!ProdutoExist(produtoId, conn))
                 {
-                    Console.WriteLine("Produto nulo!");
+                    TokenManager tokenManager = new TokenManager(this);
+
+                    BlingSingleProdutoFetcher singleProdutoFetcher = new BlingSingleProdutoFetcher(tokenManager);
+
+                    var produto = await singleProdutoFetcher.GetSingleProduto(produtoId);
+
+                    if (produto == null)
+                    {
+                        Console.WriteLine($"Produto {produtoId} não encontrado na API!");
+                    }
+
+                    Console.WriteLine($"Produto {produtoId} recuperado com sucesso.");
+
+                    InsertOrUpdateProduto(produto, conn);
                 }
-                Console.WriteLine(produto);
-                InsertOrUpdateProduto(produto, conn);
+                else
+                {
+                    Console.WriteLine($"Produto {produtoId} já existe no banco de dados.");
+                }
+            }
+            catch(Exception ex)
+            {
+                // Caso ocorra algum erro ao recuperar ou inserir o produto
+                Console.WriteLine($"Erro ao verificar ou inserir produto {produtoId}: {ex.Message}");
+                // lançar ou re-throw a exceção
             }
         }
 
