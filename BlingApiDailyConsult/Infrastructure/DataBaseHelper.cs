@@ -232,24 +232,31 @@ namespace BlingApiDailyConsult.Infrastructure
         {
             List<string> pedidosIdList = new List<string>();
 
-            using (var conn = new MySqlConnection(_connectionString))
+            try
             {
-                conn.Open();
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
 
-                string sql = @"SELECT id
+                    string sql = @"SELECT id
                             FROM pedidos
                             WHERE id NOT IN (SELECT pedido_id FROM itens_do_pedido);";
 
-                using (var cmd = new MySqlCommand(sql, conn))
-                {
-                    using (var reader = cmd.ExecuteReader())
+                    using (var cmd = new MySqlCommand(sql, conn))
                     {
-                        while (reader.Read())
+                        using (var reader = cmd.ExecuteReader())
                         {
-                            pedidosIdList.Add(reader["Id"].ToString());
+                            while (reader.Read())
+                            {
+                                pedidosIdList.Add(reader["Id"].ToString());                                
+                            }
                         }
                     }
-                }
+                }                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             return pedidosIdList;
         }

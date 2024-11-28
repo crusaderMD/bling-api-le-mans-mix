@@ -24,6 +24,8 @@ namespace BlingApiDailyConsult.Infrastructure
 
             var apiProdutoResponse = await _httpClientRequestHelper.FetchDataAsync<ApiResponseProduto>(url);
 
+            Console.WriteLine(apiProdutoResponse.ToString());
+
             return apiProdutoResponse.Produto;
         }       
     }

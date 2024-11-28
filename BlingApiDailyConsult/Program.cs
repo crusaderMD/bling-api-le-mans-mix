@@ -52,9 +52,9 @@ namespace BlingApiDailyConsult
                 // Confirmando que os dados foram armazenados
                 //Console.WriteLine("Dados dos produtos obtidos e armazenados no banco com sucesso!");
 
-                List<string> pedidoIds = dataBaseHelper.GetPedidoIdFromDataBase();
+                List<string> pedidoIds = dataBaseHelper.GetPedidoIdFromDataBase();               
 
-                string pedidos = "20009263992\r\n20076971864\r\n20125616396\r\n20152533735\r\n20371133814\r\n20549742582\r\n21032317586\r\n21032955089\r\n21042867643";
+                string pedidos = "18049418711\r\n18241588960\r\n18304836400\r\n18312872544\r\n18361674704\r\n18373812949\r\n18375779487\r\n18378902730\r\n18378920948\r\n18382438365\r\n18385267679\r\n18385354703\r\n18385374226\r\n18385389792\r\n18388873923\r\n18391935156\r\n18392944333";
 
                 string[] sepPedidos = pedidos.Split("\r\n");
 
@@ -102,11 +102,21 @@ namespace BlingApiDailyConsult
 
                 /*using var client = new HttpClient();
 
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "7090edd2463c6bdf8bc4da2f160be303c94272a9");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "4ed764f71a6b236f70de88e07d17c78e0d7ede36");
 
-                HttpResponseMessage response = await client.GetAsync("https://api.bling.com.br/Api/v3/produtos?15949857484");
+                HttpResponseMessage response = await client.GetAsync("https://api.bling.com.br/Api/v3/produtos?16189732736");
 
-                Console.WriteLine(response);*/
+                Console.WriteLine(response);
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Exibe o JSON recebido para depuração
+                Console.WriteLine();
+                Console.WriteLine("JSON recebido:");
+                Console.WriteLine(jsonResponse);
+                Console.WriteLine();*/
+
+
             }
             catch (MySqlException ex)
             {
