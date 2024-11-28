@@ -6,7 +6,7 @@ namespace BlingApiDailyConsult.Infrastructure
 {
     public class DataBaseHelper
     {
-        private readonly string _connectionString;
+        private readonly string? _connectionString;
 
         public DataBaseHelper(IConfiguration configuration)
         {
@@ -156,10 +156,10 @@ namespace BlingApiDailyConsult.Infrastructure
                 cmd.Parameters.AddWithValue("@numero", pedido.Numero);
                 cmd.Parameters.AddWithValue("@data", pedido.Data);
                 cmd.Parameters.AddWithValue("@total_produtos", pedido.TotalProdutos);
-                cmd.Parameters.AddWithValue("@status_id", pedido.Situacao.Id);
-                cmd.Parameters.AddWithValue("@status_valor", pedido.Situacao.Valor);
-                cmd.Parameters.AddWithValue("@cliente_id", pedido.Contato.Id);
-                cmd.Parameters.AddWithValue("@cliente_nome", pedido.Contato.Nome);
+                cmd.Parameters.AddWithValue("@status_id", pedido?.Situacao?.Id);
+                cmd.Parameters.AddWithValue("@status_valor", pedido?.Situacao?.Valor);
+                cmd.Parameters.AddWithValue("@cliente_id", pedido?.Contato?.Id);
+                cmd.Parameters.AddWithValue("@cliente_nome", pedido?.Contato?.Nome);
 
                 // Executa o comando no banco de dados
                 cmd.ExecuteNonQuery();
@@ -176,10 +176,14 @@ namespace BlingApiDailyConsult.Infrastructure
 
                     foreach (var produto in produtos)
                     {
-
                         InsertOrUpdateProduto(produto, conn);
-                    }
-                }
+
+                        // Apagar depois
+                        Console.WriteLine();
+                        Console.WriteLine(this + $"Produto: {produto.Id} inserido com sucesso no banco de dados");
+                        Console.WriteLine();
+                    }                   
+                }                
             }
             catch (MySqlException ex)
             {
@@ -232,7 +236,9 @@ namespace BlingApiDailyConsult.Infrastructure
             {
                 conn.Open();
 
-                string sql = @"SELECT id FROM pedidos";
+                string sql = @"SELECT id
+                            FROM pedidos
+                            WHERE id NOT IN (SELECT pedido_id FROM itens_do_pedido);";
 
                 using (var cmd = new MySqlCommand(sql, conn))
                 {
@@ -258,12 +264,29 @@ namespace BlingApiDailyConsult.Infrastructure
 
                     foreach (var pedido in pedidos)
                     {
-                        foreach (var item in pedido.Value)
+                        // Começa uma transação para cada chave (pedido)
+                        using (var transaction = conn.BeginTransaction())
                         {
-                            // Apenas para debugar
-                            Console.WriteLine($"Pedido: {pedido.Key}, Produto: {item?.Produto?.Id}");
+                            try
+                            {
+                                foreach (var item in pedido.Value)
+                                {
+                                    // Apenas para debugar
+                                    Console.WriteLine(this + $" Pedido: {pedido.Key}, Produto: {item?.Produto?.Id}");
 
-                            InsertOrUpdatePedidoitem(pedido.Key, item, conn);
+                                    // Inserção ou atualização do item
+                                    InsertOrUpdatePedidoitem(pedido.Key, item, conn, transaction);
+                                }
+
+                                // Se não houver erro, realiza o commit da transação para esta chave (pedido)
+                                transaction.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                // Em caso de erro, faz o rollback apenas da transação atual (para este pedido)
+                                transaction.Rollback();
+                                Console.WriteLine($"Erro ao processar pedido {pedido.Key}: {ex.Message}");
+                            }
                         }
                     }
                 }
@@ -272,9 +295,11 @@ namespace BlingApiDailyConsult.Infrastructure
             {
                 throw new Exception($"Erro ao inserir ou atualizar os itens do pedido no banco de dados: {ex.Message}", ex);
             }
+            // Apagar depois
+            Console.WriteLine("Pedidos Inseridos com sucesso!");
         }
 
-        private void InsertOrUpdatePedidoitem(string key, Item? item, MySqlConnection conn)
+        private void InsertOrUpdatePedidoitem(string key, Item? item, MySqlConnection conn, MySqlTransaction transaction)
         {
             try
             {
@@ -298,7 +323,7 @@ namespace BlingApiDailyConsult.Infrastructure
                             unidade_produto = VALUES(unidade_produto),
                             preco_produto = VALUES(preco_produto);";
             // Cria um comando SQL com o comando definido acima e a conexão com o banco de dados
-            using (var cmd = new MySqlCommand(sql, conn))
+            using (var cmd = new MySqlCommand(sql, conn, transaction))
             {
                 // Adiciona os parâmetros ao comando SQL para evitar SQL Injection
                 cmd.Parameters.AddWithValue("@pedido_id", key);
@@ -346,16 +371,18 @@ namespace BlingApiDailyConsult.Infrastructure
 
                     if (produto == null)
                     {
-                        Console.WriteLine($"Produto {produtoId} não encontrado na API!");
+                        Console.WriteLine(this + $"Produto {produtoId} não encontrado na API!");
                     }
 
-                    Console.WriteLine($"Produto {produtoId} recuperado com sucesso.");
+                    Console.WriteLine(this + $"Produto {produtoId} recuperado com sucesso.");
 
-                    InsertOrUpdateProduto(produto, conn);
+                    List<Produto>? produtos = new List<Produto>();
+                    produtos.Add(produto);
+                    SaveProdutos( produtos );
                 }
                 else
                 {
-                    Console.WriteLine($"Produto {produtoId} já existe no banco de dados.");
+                    Console.WriteLine(this + $" Produto {produtoId} já existe no banco de dados.");
                 }
             }
             catch(Exception ex)

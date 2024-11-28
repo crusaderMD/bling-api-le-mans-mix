@@ -52,19 +52,18 @@ namespace BlingApiDailyConsult
                 // Confirmando que os dados foram armazenados
                 //Console.WriteLine("Dados dos produtos obtidos e armazenados no banco com sucesso!");
 
-                /*List<string> pedidoIds = dataBaseHelper.GetPedidoIdFromDataBase();
+                List<string> pedidoIds = dataBaseHelper.GetPedidoIdFromDataBase();
+
+                string pedidos = "20009263992\r\n20076971864\r\n20125616396\r\n20152533735\r\n20371133814\r\n20549742582\r\n21032317586\r\n21032955089\r\n21042867643";
+
+                string[] sepPedidos = pedidos.Split("\r\n");
+
+                //List<string> pedidoIds = new(sepPedidos);               
 
                 foreach (var id in pedidoIds)
                 {
                     Console.WriteLine(id);
-                }*/
-
-                List<string> pedidoIds = new() 
-                {
-                    "17991710971",
-                    "18012150210",
-                    "18012404988"
-                };
+                }
 
                 Dictionary<string, List<Item>> pedidoProdutos = await blingPedidoItemFetcher.FetchItensDosPedidosAsync(pedidoIds);
 
@@ -88,17 +87,18 @@ namespace BlingApiDailyConsult
                     }
                 };*/
 
-                dataBaseHelper.SavePedidoItens(pedidoProdutos);
-
                 foreach (var pedidoId in pedidoProdutos)
                 {
                     Console.WriteLine();
-                    Console.WriteLine($"Pedido: {pedidoId.Key}");
+                    Console.WriteLine($"Program Class => Pedido: {pedidoId.Key}");
                     foreach (var item in pedidoId.Value)
                     {
                         Console.WriteLine($"Produto: {item?.Produto?.Id}, Descrição: {item?.Descricao}, Quantidade: {item?.Quantidade}, Preço: {item?.Valor}");
-                    }                    
+                    }
+                    Console.WriteLine();
                 }
+
+                dataBaseHelper.SavePedidoItens(pedidoProdutos);
 
                 /*using var client = new HttpClient();
 

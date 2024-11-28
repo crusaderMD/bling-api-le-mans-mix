@@ -23,14 +23,15 @@ namespace BlingApiDailyConsult.Infrastructure
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + validToken);
 
             // Apagar depois
-            Console.WriteLine(url);
+            Console.WriteLine(this + " " + url);
 
             // Realiza a requisição GET para a API
             HttpResponseMessage response = await client.GetAsync(url);
 
             // apagar depois
-            Console.WriteLine("Resposta:");
-            Console.WriteLine(response); 
+            Console.WriteLine(this + " Resposta:");
+            Console.WriteLine(response);
+            Console.WriteLine();
 
             // Verifica se a resposta da API foi bem-sucedida
             if (!response.IsSuccessStatusCode)
@@ -43,8 +44,10 @@ namespace BlingApiDailyConsult.Infrastructure
             string jsonResponse = await response.Content.ReadAsStringAsync();
 
             // Exibe o JSON recebido para depuração
-            Console.WriteLine("JSON recebido:");
+            Console.WriteLine();
+            Console.WriteLine(this + " JSON recebido:");
             Console.WriteLine(jsonResponse);
+            Console.WriteLine();
 
             // Verifica se a resposta está vazia ou nula
             if (string.IsNullOrEmpty(jsonResponse))

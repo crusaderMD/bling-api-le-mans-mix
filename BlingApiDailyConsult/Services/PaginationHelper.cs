@@ -12,12 +12,12 @@
             {
                 string paginetedUrl = $"{baseUrl}&pagina={currentPage}&limite=100";
 
-                // Exibe a URL atual para depuração
-                Console.WriteLine($"Requisitando URL: {paginetedUrl}");
+                // Exibe a URL atual para depuração apagar depois
+                Console.WriteLine(this + $" Requisitando URL: {paginetedUrl}");
 
                 var pageResults = await fetchPageData(paginetedUrl);
 
-                await Task.Delay(500); // Pausa de meio segundo antes de buscar a próxima página                
+                await Task.Delay(500); // realiza 2 requisições por segundo                
 
                 if (pageResults != null && pageResults.Count != 0)
                 {
