@@ -34,25 +34,28 @@ namespace BlingApiDailyConsult
             // Instanciar o BlingPedidoItemFetcher
             var blingPedidoItemFetcher = new BlingPedidoItemFetcher(tokenManager);
 
+            // Instaciar o BlingPedidoCompraFetcher
+            var blingPedidoCompraFetcher = new BlingPedidoCompraFetcher(tokenManager);
+
             try
             {
                 // Armazena os pedidos
-                /*Pedido[] pedidos = await blingPedidoFetcher.ExecuteAsync();
+                //Pedido[] pedidos = await blingPedidoFetcher.ExecuteAsync();
 
                 // Salva os pedidos no BD
-                dataBaseHelper.SavePedidos(pedidos);
+                //dataBaseHelper.SavePedidos(pedidos);
 
                 // Confirmando que os dados foram armazenados
-                Console.WriteLine("Dados dos pedidos obtidos e armazenados no banco com sucesso!");
+                //Console.WriteLine("Dados dos pedidos obtidos e armazenados no banco com sucesso!");
 
                 // Armazena os produtos
-                Produto[] produtos = await blingProdutoFetcher.ExecuteAsync();
+                //Produto[] produtos = await blingProdutoFetcher.ExecuteAsync();
 
                 // Salva os produtos no BD
-                dataBaseHelper.SaveProdutos(produtos);
+                //dataBaseHelper.SaveProdutos(produtos);
 
                 // Confirmando que os dados foram armazenados
-                Console.WriteLine("Dados dos produtos obtidos e armazenados no banco com sucesso!");*/                          
+                //Console.WriteLine("Dados dos produtos obtidos e armazenados no banco com sucesso!");                          
 
                 //string pedidos = "18049418711\r\n18241588960\r\n18304836400\r\n18312872544\r\n18361674704\r\n18373812949\r\n18375779487\r\n18378902730\r\n18378920948\r\n18382438365\r\n18385267679\r\n18385354703\r\n18385374226\r\n18385389792\r\n18388873923\r\n18391935156\r\n18392944333";
 
@@ -137,6 +140,15 @@ namespace BlingApiDailyConsult
             }
 
             Console.WriteLine("eu continuei!");
+
+            try
+            {
+                Pedido[] pedidosCompra = await blingPedidoCompraFetcher.ExecuteAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro genérico: {ex.Message}");
+            }
         }
     }
 }

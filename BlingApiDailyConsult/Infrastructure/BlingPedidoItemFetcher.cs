@@ -32,11 +32,11 @@ namespace BlingApiDailyConsult.Infrastructure
                 {
                     await Task.Delay(500);
                     string url = $"{_baseUrl}{pedidoId}";
-                    var apiResponse = await _httpClientRequestHelper.FetchDataAsync<ApiResponsePedido>(url);
+                    var apiResponse = await _httpClientRequestHelper.FetchDataAsync<ApiSingleResponse<Pedido>>(url);
 
-                    if (apiResponse?.Pedido != null)
+                    if (apiResponse?.Data != null)
                     {
-                        var itens = apiResponse.Pedido.Itens ?? Enumerable.Empty<Item>();                           
+                        var itens = apiResponse.Data.Itens ?? Enumerable.Empty<Item>();                           
                         lock (pedidosItensMap)
                         {
                             pedidosItensMap[pedidoId] = itens.ToList();

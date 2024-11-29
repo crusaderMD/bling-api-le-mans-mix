@@ -29,7 +29,7 @@ namespace BlingApiDailyConsult.Infrastructure
 
             return (await _paginationHelper.FetchAllPagesAsync<Pedido>(dateFilteredUrl, async (paginatedUrl) =>
             {
-                // Utilize o HttpClientHelper para buscar os dados da API                 
+                // Utilizando o HttpClientHelper para buscar os dados da API                 
                 var apiPedidoResponse = await _httpClientRequestHelper.FetchDataAsync<ApiResponse<Pedido>>(paginatedUrl);
                 
                 // Retorna a lista de pedidos deserializada

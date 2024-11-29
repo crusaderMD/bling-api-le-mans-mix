@@ -36,6 +36,9 @@ namespace BlingApiDailyConsult.Entities
         [JsonPropertyName("contato")]
         public Contato? Contato { get; set; }
 
+        [JsonPropertyName("fornecedor")]
+        public Fornecedor? Fornecedor { get; set; }
+
         [JsonPropertyName("situacao")]
         public Situacao? Situacao { get; set; }
 

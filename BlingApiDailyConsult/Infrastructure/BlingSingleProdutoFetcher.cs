@@ -22,11 +22,11 @@ namespace BlingApiDailyConsult.Infrastructure
             //apagar depois
             Console.WriteLine(this + " retorna: " + url);
 
-            var apiProdutoResponse = await _httpClientRequestHelper.FetchDataAsync<ApiResponseProduto>(url);
+            var apiProdutoResponse = await _httpClientRequestHelper.FetchDataAsync<ApiSingleResponse<Produto>>(url);
 
             Console.WriteLine(apiProdutoResponse.ToString());
 
-            return apiProdutoResponse.Produto;
+            return apiProdutoResponse.Data;
         }       
     }
 }
