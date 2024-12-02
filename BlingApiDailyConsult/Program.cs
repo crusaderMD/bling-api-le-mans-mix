@@ -1,5 +1,6 @@
 ﻿using BlingApiDailyConsult.Entities;
 using BlingApiDailyConsult.Infrastructure;
+using BlingApiDailyConsult.Interfaces;
 using BlingApiDailyConsult.Repository;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -19,22 +20,22 @@ namespace BlingApiDailyConsult
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            // Instanciar o DataBaseHelper com a configuração carregada
+            // Instancia o DataBaseHelper com a configuração carregada
             var dataBaseHelper = new DataBaseHelper(configuration);
 
-            // Instanciar o TokenManager injetando o DataBaseHelper
-            var tokenManager = new TokenManager(dataBaseHelper);
+            // Instancia o TokenManager injetando o DataBaseHelper
+            var tokenManager = new TokenManager(dataBaseHelper);               
 
-            // Instanciar o BlingPedidoFetcher injetando o TokenManager
+            // Instancia o BlingPedidoFetcher injetando o TokenManager
             var blingPedidoFetcher = new BlingPedidoFetcher(tokenManager);
 
-            // Instanciar o BlingProdutoFetcher
+            // Instancia o BlingProdutoFetcher
             var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
 
-            // Instanciar o BlingPedidoItemFetcher
+            // Instancia o BlingPedidoItemFetcher
             var blingPedidoItemFetcher = new BlingPedidoItemFetcher(tokenManager);
 
-            // Instaciar o BlingPedidoCompraFetcher
+            // Instacia o BlingPedidoCompraFetcher
             var blingPedidoCompraFetcher = new BlingPedidoCompraFetcher(tokenManager);
 
             try
@@ -42,30 +43,26 @@ namespace BlingApiDailyConsult
                 // Armazena os pedidos
                 //Pedido[] pedidos = await blingPedidoFetcher.ExecuteAsync();
 
+                // Instancia a classe responsável pelos pedidos de venda no BD
+                var pedidoVendaRepository = new PedidoVendaRepository(configuration);
                 // Salva os pedidos no BD
-                //dataBaseHelper.SavePedidos(pedidos);
-
-                // Confirmando que os dados foram armazenados
-                //Console.WriteLine("Dados dos pedidos obtidos e armazenados no banco com sucesso!");
-
+                //pedidoVendaRepository.Add(pedidos);
+                
                 // Armazena os produtos
                 //Produto[] produtos = await blingProdutoFetcher.ExecuteAsync();
 
+                // Instancia a classe responsável pelos produtos no BD
+                //var produtoRepository = new ProdutoRepository(configuration);
                 // Salva os produtos no BD
-                //dataBaseHelper.SaveProdutos(produtos);
-
-                // Confirmando que os dados foram armazenados
-                //Console.WriteLine("Dados dos produtos obtidos e armazenados no banco com sucesso!");                          
+                //produtoRepository.Add(produtos);                          
 
                 //string pedidos = "18049418711\r\n18241588960\r\n18304836400\r\n18312872544\r\n18361674704\r\n18373812949\r\n18375779487\r\n18378902730\r\n18378920948\r\n18382438365\r\n18385267679\r\n18385354703\r\n18385374226\r\n18385389792\r\n18388873923\r\n18391935156\r\n18392944333";
 
                 //string[] sepPedidos = pedidos.Split("\r\n");
 
                 //List<string> pedidoIds = new(sepPedidos);
-
-                PedidoRepository pedidoRepository = new PedidoRepository(configuration);
-                
-                List<string> pedidoIds = (List<string>)await pedidoRepository.GetAllIdsAsync();
+              
+                List<string> pedidoIds = (List<string>)await pedidoVendaRepository.GetAllIdsAsync();
 
                 foreach (var id in pedidoIds)
                 {
@@ -105,8 +102,10 @@ namespace BlingApiDailyConsult
                     Console.WriteLine();
                 }
 
-                dataBaseHelper.SavePedidoItens(pedidoProdutos);
-                
+                // Instancia a classe responsável pelos itens do pedido no BD
+                var pedidoItemRepository = new PedidoItemRepository(configuration, tokenManager);
+                // Salva os itens do peido no BD
+                pedidoItemRepository.Add(pedidoProdutos);                
 
                 /*using var client = new HttpClient();
 
@@ -144,6 +143,22 @@ namespace BlingApiDailyConsult
             try
             {
                 Pedido[] pedidosCompra = await blingPedidoCompraFetcher.ExecuteAsync();
+
+                var pedidoCompraRepository = new PedidoCompraRepository(configuration);
+
+                pedidoCompraRepository.Add(pedidosCompra);
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Erro SQL: {ex.Message}");
+            }
+            
+            
+
+            try
+            {
+                var blingPedidoCompraItemFetcher = new BlingPedidoCompraItemFetcher(tokenManager);               
+                
             }
             catch (Exception ex)
             {

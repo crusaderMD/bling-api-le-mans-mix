@@ -12,6 +12,6 @@ namespace BlingApiDailyConsult.Interfaces
         void Update(T entity);
         void Delete(T entity);
         T GetById(int id);
-        Task<IEnumerable<T>> GetAllIdsAsync();
+        Task<IEnumerable<string>> GetAllIdsAsync();
     }
 }

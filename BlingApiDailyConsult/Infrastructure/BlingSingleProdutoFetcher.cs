@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlingApiDailyConsult.Infrastructure
 {
-    class BlingSingleProdutoFetcher
+    class BlingSingleProdutoFetcher : IBlingApiFetcher<Produto>
     {
         private const string baseUrl = "https://api.bling.com.br/Api/v3/produtos/";
 
@@ -13,6 +13,11 @@ namespace BlingApiDailyConsult.Infrastructure
         public BlingSingleProdutoFetcher(TokenManager tokenManager)
         {
             _httpClientRequestHelper = new HttpClientRequestHelper(tokenManager);
+        }
+
+        public Task<Produto> ExecuteAsync()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Produto> GetSingleProduto(long produtoId)

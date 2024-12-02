@@ -1,4 +1,5 @@
 ﻿using BlingApiDailyConsult.Entities;
+using BlingApiDailyConsult.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlingApiDailyConsult.Infrastructure
 {
-    internal class BlingPedidoItemFetcher
+    internal class BlingPedidoItemFetcher : IBlingApiFetcher<Pedido>
     {
         private readonly string _baseUrl = "https://api.bling.com.br/Api/v3/pedidos/vendas/";
         private readonly HttpClientRequestHelper _httpClientRequestHelper;
@@ -16,6 +17,12 @@ namespace BlingApiDailyConsult.Infrastructure
         {
             _httpClientRequestHelper = new HttpClientRequestHelper(tokenManager) ?? throw new ArgumentNullException(nameof(HttpClientRequestHelper));
         }
+
+        public Task<Pedido> ExecuteAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Dictionary<string, List<Item>>> FetchItensDosPedidosAsync(List<string> pedidoIds)
         {
             if (pedidoIds == null || !pedidoIds.Any())
