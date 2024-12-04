@@ -14,11 +14,13 @@ namespace BlingApiDailyConsult.Tests
     {
         private readonly BlingPedidoCompraItemFetcher _blingPedidoCompraItemFetcher;
         private readonly PedidoCompraRepository _pedidoCompraRepository;
+        private readonly PedidoCompraItemRepository _pedidoCompraItemRepository;
 
         public PedidoCompraItemTest(TokenManager tokenManager, IConfiguration configuration)
         {
             _blingPedidoCompraItemFetcher = new BlingPedidoCompraItemFetcher(tokenManager);
             _pedidoCompraRepository = new PedidoCompraRepository(configuration);
+            _pedidoCompraItemRepository = new PedidoCompraItemRepository(configuration, tokenManager);
         }
 
         public async Task TestReqInsertItemPedidoCompra()
@@ -30,9 +32,9 @@ namespace BlingApiDailyConsult.Tests
                 Console.WriteLine(ids);
             }
 
-            Dictionary<string, List<Item>> pedidoItens = await _blingPedidoCompraItemFetcher.FetchItensDosPedidosAsync(pedidoCompraIds);
+            Dictionary<string, List<Item>> pedidoCompraItens = await _blingPedidoCompraItemFetcher.FetchItensDosPedidosAsync(pedidoCompraIds);
 
-            foreach (var pedido in pedidoItens)
+            foreach (var pedido in pedidoCompraItens)
             {
                 Console.WriteLine();
                 Console.WriteLine("Pedido: " + pedido.Key);
@@ -43,6 +45,9 @@ namespace BlingApiDailyConsult.Tests
                     Console.WriteLine("Item do pedido: " + item?.Produto?.Id);
                 }
             }
+
+            // Salva os itens dos pedidos no BD
+            _pedidoCompraItemRepository.Add(pedidoCompraItens);
         }
     }
 }

@@ -11,21 +11,18 @@ using System.Threading.Tasks;
 
 namespace BlingApiDailyConsult.Repository
 {
-
-    internal class PedidoItemRepository : IRepository<Dictionary<string, List<Item>>>
+    internal class PedidoCompraItemRepository : IRepository<Dictionary<string, List<Item>>>
     {
         private readonly string? _connectionString;        
         private readonly BlingSingleProdutoFetcher _blingSingleProdutoFetcher;
         private readonly ProdutoRepository _produtoRepository;
 
-        public PedidoItemRepository(IConfiguration configuration, TokenManager tokenManager)
+        public PedidoCompraItemRepository(IConfiguration configuration, TokenManager tokenManager)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
             _blingSingleProdutoFetcher = new BlingSingleProdutoFetcher(tokenManager);
             _produtoRepository = new ProdutoRepository(configuration);
         }
-
-        // Salva os itens de um pedido no BD
         public void Add(Dictionary<string, List<Item>> pedidos)
         {
             try
@@ -33,11 +30,10 @@ namespace BlingApiDailyConsult.Repository
                 using (var conn = new MySqlConnection(_connectionString))
                 {
                     conn.Open();
-
                     foreach (var pedido in pedidos)
                     {
                         // Começa uma transação para cada chave (pedido)
-                        using (var transaction = conn.BeginTransaction())
+                        using ( var transaction = conn.BeginTransaction())
                         {
                             try
                             {
@@ -49,29 +45,26 @@ namespace BlingApiDailyConsult.Repository
                                     // Inserção ou atualização do item
                                     InsertOrUpdatePedidoitem(pedido.Key, item, conn, transaction);
                                 }
-
                                 // Se não houver erro, realiza o commit da transação para esta chave (pedido)
                                 transaction.Commit();
                             }
-                            catch (Exception ex)
+                            catch ( MySqlException ex )
                             {
                                 // Em caso de erro, faz o rollback apenas da transação atual (para este pedido)
                                 transaction.Rollback();
                                 Console.WriteLine($"Erro ao processar pedido {pedido.Key}: {ex.Message}");
+                                Console.WriteLine($"Detalhes: {ex.StackTrace}");
                             }
-                        }
+                        } 
                     }
                 }
             }
             catch (MySqlException ex)
             {
-                throw new Exception($"Erro ao inserir ou atualizar os itens do pedido no banco de dados: {ex.Message}", ex);
+                throw new Exception($"Erro ao inserir ou atualizar os itens do pedido no banco de dados: {ex.Message}");
             }
-            // Apagar depois
-            Console.WriteLine("Pedidos Inseridos com sucesso!");
         }
 
-        // Método auxiliar para inserir ou atualizar os itens de um pedido no BD
         private void InsertOrUpdatePedidoitem(string key, Item? item, MySqlConnection conn, MySqlTransaction transaction)
         {
             try
@@ -85,15 +78,15 @@ namespace BlingApiDailyConsult.Repository
             }
 
             // Comando SQL para inserir os dados dos itens do pedido na tabela de pedidos do banco
-            string sql = @"INSERT INTO itens_do_pedido
-                            (pedido_id, produto_id, nome_produto, quantidade, unidade_produto, preco_produto)
+            string sql = @"INSERT INTO itens_pedido_compra
+                            (pedido_id, produto_id, nome_produto, quantidade, unidade, preco_produto)
                         VALUES
-                            (@pedido_id, @produto_id, @nome_produto, @quantidade, @unidade_produto, @preco_produto)
+                            (@pedido_id, @produto_id, @nome_produto, @quantidade, @unidade, @preco_produto)
                         ON DUPLICATE KEY UPDATE
                             produto_id = VALUES(produto_id),
                             nome_produto = VALUES(nome_produto),
                             quantidade = VALUES(quantidade),
-                            unidade_produto = VALUES(unidade_produto),
+                            unidade = VALUES(unidade),
                             preco_produto = VALUES(preco_produto);";
             // Cria um comando SQL com o comando definido acima e a conexão com o banco de dados
             using (var cmd = new MySqlCommand(sql, conn, transaction))
@@ -103,7 +96,7 @@ namespace BlingApiDailyConsult.Repository
                 cmd.Parameters.AddWithValue("@produto_id", item?.Produto?.Id);
                 cmd.Parameters.AddWithValue("@nome_produto", item?.Descricao);
                 cmd.Parameters.AddWithValue("@quantidade", item?.Quantidade);
-                cmd.Parameters.AddWithValue("@unidade_produto", item?.Unidade);
+                cmd.Parameters.AddWithValue("@unidade", item?.Unidade);
                 cmd.Parameters.AddWithValue("@preco_produto", item?.Valor);
 
                 // Executa o comando no banco de dados
@@ -120,14 +113,13 @@ namespace BlingApiDailyConsult.Repository
             }
         }
 
-        // Método auxiliar para verificar se um pedido já existe no BD
         private async Task VerifyAndInsertProduto(long produtoId, MySqlConnection conn)
         {
             try
             {
                 if (!ProdutoExist(produtoId, conn))
-                {    
-                    var produto = await _blingSingleProdutoFetcher?.GetSingleProduto(produtoId);
+                {
+                    var produto = await _blingSingleProdutoFetcher.GetSingleProduto(produtoId);
 
                     if (produto == null)
                     {

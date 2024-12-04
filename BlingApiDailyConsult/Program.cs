@@ -28,6 +28,7 @@ namespace BlingApiDailyConsult
             // Instancia o TokenManager injetando o DataBaseHelper
             var tokenManager = new TokenManager(dataBaseHelper);         
 
+            // Teste autenticação
             //OAuthHelperGetAuthCode.RedirectToAuthUrl();
 
             
@@ -136,7 +137,7 @@ namespace BlingApiDailyConsult
             try
             {
                 var testItemPedidoCompra = new PedidoCompraItemTest(tokenManager, configuration);
-                await testItemPedidoCompra.TestReqInsertItemPedidoCompra();
+                await testItemPedidoCompra.TestReqInsertItemPedidoCompra();      
             }
             catch (HttpRequestException ex)
             {

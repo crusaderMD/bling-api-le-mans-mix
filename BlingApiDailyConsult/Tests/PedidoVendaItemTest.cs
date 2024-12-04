@@ -14,13 +14,13 @@ namespace BlingApiDailyConsult.Tests
     {
         private readonly BlingPedidoItemFetcher _blingPedidoItemFetcher;
         private readonly PedidoVendaRepository _pedidoVendaRepository;
-        private readonly PedidoItemRepository _pedidoItemRepository;
+        private readonly PedidoVendaItemRepository _pedidoItemRepository;
 
         public PedidoVendaItemTest(TokenManager tokenManager, IConfiguration configuration)
         {
             _blingPedidoItemFetcher = new BlingPedidoItemFetcher(tokenManager);
             _pedidoVendaRepository = new PedidoVendaRepository(configuration);
-            _pedidoItemRepository = new PedidoItemRepository(configuration, tokenManager);
+            _pedidoItemRepository = new PedidoVendaItemRepository(configuration, tokenManager);
         }
         public async Task TestReqInsertVendaItem()
         {

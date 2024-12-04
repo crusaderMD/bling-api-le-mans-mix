@@ -27,7 +27,7 @@ namespace BlingApiDailyConsult.Infrastructure
         {
             if (pedidoIds == null || !pedidoIds.Any())
             {
-                throw new ArgumentException($"A lista de IDs de pedidos não pode ser nula ou vazia. {nameof(BlingPedidoItemFetcher)}, {nameof(FetchItensDosPedidosAsync)}, {nameof(pedidoIds)}");
+                throw new ArgumentException($"A lista de IDs de pedidos não pode ser nula ou vazia. {nameof(BlingPedidoCompraItemFetcher)}, {nameof(FetchItensDosPedidosAsync)}, {nameof(pedidoIds)}");
             }
 
             var pedidosItensMap = new Dictionary<string, List<Item>>();

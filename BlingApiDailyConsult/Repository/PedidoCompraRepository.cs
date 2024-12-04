@@ -109,7 +109,7 @@ namespace BlingApiDailyConsult.Repository
 
                     string sql = @"SELECT id 
                                 FROM pedido_compra
-                                WHERE id NOT IN (SELECT pedido_id FROM itens_do_pedido);";
+                                WHERE id NOT IN (SELECT pedido_id FROM itens_pedido_compra);";
 
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
