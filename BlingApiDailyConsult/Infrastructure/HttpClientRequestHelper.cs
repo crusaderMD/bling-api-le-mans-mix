@@ -26,7 +26,6 @@ namespace BlingApiDailyConsult.Infrastructure
             Console.WriteLine(this + " " + url);
 
             // Realiza a requisição GET para a API
-
             HttpResponseMessage response = await client.GetAsync(url) ?? throw new Exception();
 
             // apagar depois

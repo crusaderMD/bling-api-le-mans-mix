@@ -20,8 +20,9 @@ namespace BlingApiDailyConsult.Repository
 
         public PedidoItemRepository(IConfiguration configuration, TokenManager tokenManager)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");            
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
             _blingSingleProdutoFetcher = new BlingSingleProdutoFetcher(tokenManager);
+            _produtoRepository = new ProdutoRepository(configuration);
         }
 
         // Salva os itens de um pedido no BD
@@ -106,7 +107,16 @@ namespace BlingApiDailyConsult.Repository
                 cmd.Parameters.AddWithValue("@preco_produto", item?.Valor);
 
                 // Executa o comando no banco de dados
-                cmd.ExecuteNonQuery();
+                int returned = cmd.ExecuteNonQuery();
+
+                if (returned > 0)
+                {
+                    Console.WriteLine($"Operação de gravação do pedido: {key}, produto: {item?.Produto?.Id} concluída com exíto!");
+                }
+                else
+                {
+                    Console.WriteLine($"Pedido: {key}, Produto: {item?.Produto?.Id} não pode ser gravado!");
+                }
             }
         }
 
@@ -117,7 +127,7 @@ namespace BlingApiDailyConsult.Repository
             {
                 if (!ProdutoExist(produtoId, conn))
                 {    
-                    var produto = await _blingSingleProdutoFetcher.GetSingleProduto(produtoId);
+                    var produto = await _blingSingleProdutoFetcher?.GetSingleProduto(produtoId);
 
                     if (produto == null)
                     {
@@ -128,7 +138,7 @@ namespace BlingApiDailyConsult.Repository
 
                     List<Produto>? produtos = new List<Produto>();
                     produtos.Add(produto);
-                    _produtoRepository.Add(produtos);
+                    _produtoRepository?.Add(produtos);
                 }
                 else
                 {

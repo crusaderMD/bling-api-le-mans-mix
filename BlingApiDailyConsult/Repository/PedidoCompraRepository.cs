@@ -6,6 +6,7 @@ using Mysqlx.Crud;
 using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,7 @@ namespace BlingApiDailyConsult.Repository
             }
             catch (MySqlException ex)
             {
-                throw new Exception($"Erro ao inserir ou atualizar o pedido no banco de dados: {ex.Message}", ex);
+                throw new Exception($"Erro ao inserir ou atualizar o pedido de compra no banco de dados: {ex.Message}", ex);
             }
         }
 
@@ -72,7 +73,7 @@ namespace BlingApiDailyConsult.Repository
 
                 if (returned > 0)
                 {
-                    Console.WriteLine($"Operação de gravação do pedido: {pedido?.Id} concluída com exíto!");
+                    Console.WriteLine($"Operação de gravação do pedido de compra: {pedido?.Id} concluída com exíto!");
                 }
                 else
                 {
@@ -84,12 +85,7 @@ namespace BlingApiDailyConsult.Repository
         public void Delete(IEnumerable<Pedido> entity)
         {
             throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<string>> GetAllIdsAsync()
-        {
-            throw new NotImplementedException();
-        }
+        }       
 
         public IEnumerable<Pedido> GetById(int id)
         {
@@ -99,6 +95,39 @@ namespace BlingApiDailyConsult.Repository
         public void Update(IEnumerable<Pedido> entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<string>> GetAllIdsAsync()
+        {
+            List<string> ids = new List<string>();
+
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string sql = @"SELECT id 
+                                FROM pedido_compra
+                                WHERE id NOT IN (SELECT pedido_id FROM itens_do_pedido);";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                ids.Add(reader.GetInt64("id").ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return ids;
         }
     }
 }

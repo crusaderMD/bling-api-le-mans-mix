@@ -37,7 +37,7 @@ namespace BlingApiDailyConsult.Repository
             }
             catch (MySqlException ex)
             {
-                throw new Exception($"Erro ao inserir ou atualizar o pedido no banco de dados: {ex.Message}", ex);
+                throw new Exception($"Erro ao inserir ou atualizar o pedido de venda no banco de dados: {ex.Message}", ex);
             }
             
         }
@@ -78,7 +78,7 @@ namespace BlingApiDailyConsult.Repository
 
                 if (returned > 0)
                 {
-                    Console.WriteLine($"Operação de gravação do pedido: {pedido?.Id} concluída com exíto!");
+                    Console.WriteLine($"Operação de gravação do pedido de venda: {pedido?.Id} concluída com exíto!");
                 }
                 else
                 {

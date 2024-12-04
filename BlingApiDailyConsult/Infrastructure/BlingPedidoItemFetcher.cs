@@ -68,7 +68,6 @@ namespace BlingApiDailyConsult.Infrastructure
             await Task.WhenAll(tasks);
             return pedidosItensMap;
         }
-
     }
 }
 
