@@ -3,28 +3,44 @@
   "WorkspaceRootPath": "C:\\Windows\\Visual\\BlingApiDailyConsult\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\infrastructure\\blingpedidocompraitemfetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\infrastructure\\blingpedidocompraitemfetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\repository\\notafiscalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\repository\\notafiscalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\tests\\notafiscalfetchertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\tests\\notafiscalfetchertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\repository\\pedidocomprarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\repository\\pedidocomprarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\infrastructure\\blingsingleprodutofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\infrastructure\\blingsingleprodutofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\repository\\pedidocompraitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\repository\\pedidocompraitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\infrastructure\\blingnotafiscalfetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\infrastructure\\blingnotafiscalfetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\repository\\pedidovendaitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\repository\\pedidovendaitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\entities\\notafiscal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\entities\\notafiscal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\tests\\pedidocompraitemtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\tests\\pedidocompraitemtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\infrastructure\\blingsinglenotafiscalfetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\infrastructure\\blingsinglenotafiscalfetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\entities\\enums\\situacaonotafiscal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\entities\\enums\\situacaonotafiscal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\entities\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\entities\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\entities\\enums\\tiponotafiscal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\entities\\enums\\tiponotafiscal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,86 +50,134 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PedidoCompraRepository.cs",
-              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\PedidoCompraRepository.cs",
-              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Repository\\PedidoCompraRepository.cs",
-              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\PedidoCompraRepository.cs",
-              "RelativeToolTip": "BlingApiDailyConsult\\Repository\\PedidoCompraRepository.cs",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAuwG8AAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T16:52:59.048Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PedidoCompraItemTest.cs",
-              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Tests\\PedidoCompraItemTest.cs",
-              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Tests\\PedidoCompraItemTest.cs",
-              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Tests\\PedidoCompraItemTest.cs",
-              "RelativeToolTip": "BlingApiDailyConsult\\Tests\\PedidoCompraItemTest.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAQwDAAAAAvAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "NotaFiscalRepository.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\NotaFiscalRepository.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Repository\\NotaFiscalRepository.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\NotaFiscalRepository.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Repository\\NotaFiscalRepository.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAgwBcAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:43:29.717Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PedidoCompraItemRepository.cs",
-              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\PedidoCompraItemRepository.cs",
-              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Repository\\PedidoCompraItemRepository.cs",
-              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\PedidoCompraItemRepository.cs",
-              "RelativeToolTip": "BlingApiDailyConsult\\Repository\\PedidoCompraItemRepository.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAowFgAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:13:14.33Z",
+              "WhenOpened": "2024-12-05T17:57:20.589Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "PedidoVendaItemRepository.cs",
-              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\PedidoVendaItemRepository.cs",
-              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Repository\\PedidoVendaItemRepository.cs",
-              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\PedidoVendaItemRepository.cs",
-              "RelativeToolTip": "BlingApiDailyConsult\\Repository\\PedidoVendaItemRepository.cs",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAuwHoAAABXAAAAAAAAAA==",
+              "Title": "BlingNotaFiscalFetcher.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingNotaFiscalFetcher.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Infrastructure\\BlingNotaFiscalFetcher.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingNotaFiscalFetcher.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Infrastructure\\BlingNotaFiscalFetcher.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwCEAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:07:56.307Z",
+              "WhenOpened": "2024-12-05T16:34:18.205Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BlingPedidoCompraItemFetcher.cs",
-              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingPedidoCompraItemFetcher.cs",
-              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Infrastructure\\BlingPedidoCompraItemFetcher.cs",
-              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingPedidoCompraItemFetcher.cs",
-              "RelativeToolTip": "BlingApiDailyConsult\\Infrastructure\\BlingPedidoCompraItemFetcher.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAArwB0AAACIAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "BlingSingleProdutoFetcher.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingSingleProdutoFetcher.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Infrastructure\\BlingSingleProdutoFetcher.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingSingleProdutoFetcher.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Infrastructure\\BlingSingleProdutoFetcher.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowB8AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T12:30:40.938Z",
+              "WhenOpened": "2024-12-05T16:22:07.139Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BlingSingleNotaFiscalFetcher.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingSingleNotaFiscalFetcher.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Infrastructure\\BlingSingleNotaFiscalFetcher.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingSingleNotaFiscalFetcher.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Infrastructure\\BlingSingleNotaFiscalFetcher.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAA5wCQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T16:19:10.322Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SituacaoNotaFiscal.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\Enums\\SituacaoNotaFiscal.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Entities\\Enums\\SituacaoNotaFiscal.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\Enums\\SituacaoNotaFiscal.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Entities\\Enums\\SituacaoNotaFiscal.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAABQAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T16:01:52.915Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Fornecedor.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\Fornecedor.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Entities\\Fornecedor.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\Fornecedor.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Entities\\Fornecedor.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowBQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T15:59:18.88Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NotaFiscal.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\NotaFiscal.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Entities\\NotaFiscal.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\NotaFiscal.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Entities\\NotaFiscal.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T13:24:51.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TipoNotaFiscal.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\Enums\\TipoNotaFiscal.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Entities\\Enums\\TipoNotaFiscal.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\Enums\\TipoNotaFiscal.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Entities\\Enums\\TipoNotaFiscal.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T13:24:03.287Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "NotaFiscalFetcherTest.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Tests\\NotaFiscalFetcherTest.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Tests\\NotaFiscalFetcherTest.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Tests\\NotaFiscalFetcherTest.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Tests\\NotaFiscalFetcherTest.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAgwDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T11:26:15.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Program.cs",
               "RelativeDocumentMoniker": "BlingApiDailyConsult\\Program.cs",
               "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Program.cs",
               "RelativeToolTip": "BlingApiDailyConsult\\Program.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwB4AAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAmwLAAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-29T14:14:19.328Z",
               "EditorCaption": ""

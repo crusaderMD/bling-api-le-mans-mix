@@ -26,13 +26,13 @@ namespace BlingApiDailyConsult
             var dataBaseHelper = new DataBaseHelper(configuration);
 
             // Instancia o TokenManager injetando o DataBaseHelper
-            var tokenManager = new TokenManager(dataBaseHelper);         
+            var tokenManager = new TokenManager(dataBaseHelper);
 
             // Teste autenticação
             //OAuthHelperGetAuthCode.RedirectToAuthUrl();
 
-            
-            
+
+
             // Teste request e gravação no BD - pedidos de venda
             /*try
             {
@@ -56,8 +56,8 @@ namespace BlingApiDailyConsult
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }*/
 
-            
-            
+
+
             // Teste request e gravação no BD - Produtos
             /*try
             {
@@ -81,8 +81,8 @@ namespace BlingApiDailyConsult
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }*/
 
-            
-            
+
+
             // Teste request e gravação no BD - itens dos pedidos de venda
             /*try
             {
@@ -106,8 +106,8 @@ namespace BlingApiDailyConsult
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }*/
 
-            
-            
+
+
             // Teste request insert no BD - Pedido Compra
             /*try
             {
@@ -132,12 +132,49 @@ namespace BlingApiDailyConsult
             }*/
 
 
-            
+
             // Test request e insert no BD - itens pedido compra
-            try
-            {
-                var testItemPedidoCompra = new PedidoCompraItemTest(tokenManager, configuration);
-                await testItemPedidoCompra.TestReqInsertItemPedidoCompra();      
+            /*try
+             {
+                 var testItemPedidoCompra = new PedidoCompraItemTest(tokenManager, configuration);
+                 await testItemPedidoCompra.TestReqInsertItemPedidoCompra();      
+             }
+             catch (HttpRequestException ex)
+             {
+                 Console.WriteLine($"Http error: {ex.Message}");
+             }
+             catch (ArgumentException ex)
+             {
+                 Console.WriteLine($"Erro de Argumento: {ex.Message}");
+             }
+             catch (MySqlException ex)
+             {
+                 Console.WriteLine($"Erro SQL: {ex.Message}");
+             }
+             catch (Exception ex)
+             {
+                 Console.WriteLine($"Erro genérico: {ex.Message}");
+             }*/
+
+            try 
+            { 
+                var testeNotaFiscal = new NotaFiscalFetcherTest(tokenManager, configuration);
+                await testeNotaFiscal.TestReqInsertNotaFiscal();
+
+                /*var notasFiscais = new BlingNotaFiscalFetcher(tokenManager);                
+                var notaFiscal = new BlingSingleNotaFiscalFetcher(tokenManager);
+                var nfeRep = new NotaFiscalRepository(configuration);
+
+                NotaFiscal[] notas = await notasFiscais.ExecuteAsync();
+                List<NotaFiscal> list = new List<NotaFiscal>();
+
+                foreach (var nota in notas)
+                {
+                    var retorno = await notaFiscal.GetSingleNotaFiscal(nota.Id);                    
+                    list.Add(retorno);
+                    nfeRep.Add(list);
+                    await Task.Delay(500); // realiza 2 requisições por segundo
+                }*/
             }
             catch (HttpRequestException ex)
             {
@@ -154,10 +191,7 @@ namespace BlingApiDailyConsult
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
-            }
-
-
-
+            }            
         }
     }
 }

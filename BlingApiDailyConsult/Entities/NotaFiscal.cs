@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using BlingApiDailyConsult.Entities.Enums;
+using System.Text.Json.Serialization;
 
 namespace BlingApiDailyConsult.Entities
 {
@@ -8,10 +9,10 @@ namespace BlingApiDailyConsult.Entities
         public long Id { get; set; }
 
         [JsonPropertyName("tipo")]
-        public int Tipo { get; set; }
+        public TipoNotaFiscal TipoNotaFiscal { get; set; }
 
         [JsonPropertyName("situacao")]
-        public Situacao? Situacao { get; set; }
+        public SituacaoNotaFiscal SituacaoNotaFiscal { get; set; }
 
         [JsonPropertyName("numero")]
         public string? Numero { get; set; }
@@ -36,8 +37,5 @@ namespace BlingApiDailyConsult.Entities
 
         [JsonPropertyName("xml")]
         public string? LinkXml { get; set; }
-
-
-
     }
 }

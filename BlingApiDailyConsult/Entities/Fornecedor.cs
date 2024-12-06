@@ -19,7 +19,7 @@ namespace BlingApiDailyConsult.Entities
         public string? Codigo { get; set; }
 
         [JsonPropertyName("situacao")]
-        public string? Situação { get; set; }
+        public string? Situacao { get; set; }
 
         [JsonPropertyName("numeroDocumento")]
         public string? NumeroDocumento { get; set; }

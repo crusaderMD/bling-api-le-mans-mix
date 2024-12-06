@@ -24,11 +24,12 @@ namespace BlingApiDailyConsult.Infrastructure
         {
             string url = baseUrl + produtoId.ToString();
 
-            //apagar depois
+            // apagar depois
             Console.WriteLine(this + " retorna: " + url);
 
             var apiProdutoResponse = await _httpClientRequestHelper.FetchDataAsync<ApiSingleResponse<Produto>>(url);
 
+            // apagar depois
             Console.WriteLine(apiProdutoResponse.ToString());
 
             return apiProdutoResponse.Data;
