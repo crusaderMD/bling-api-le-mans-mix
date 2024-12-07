@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,46 @@ namespace BlingApiDailyConsult.Repository
         public void Update(IEnumerable<NotaFiscal> entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<string>> GetXmlLink()
+        {
+            List<string> linksXml = new List<string>();
+
+            try
+            {               
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string sql = @"SELECT link_xml
+                        FROM notas_fiscais;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                if (reader.GetString("link_xml") != string.Empty)
+                                {
+                                    linksXml.Add(reader.GetString("link_xml"));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Erro SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro genérico: " + ex.Message);
+            }
+
+            return linksXml;
         }
     }
 }

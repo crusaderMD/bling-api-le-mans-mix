@@ -129,9 +129,13 @@ namespace BlingApiDailyConsult.Repository
                     }
                 }
             }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Erro SQL: " + ex.Message);
+            }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Erro genérico: " + ex.Message);
             }
             return ids;
         }

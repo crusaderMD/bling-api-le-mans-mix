@@ -1,4 +1,5 @@
 ﻿using BlingApiDailyConsult.Entities;
+using BlingApiDailyConsult.Entities.XMLEntities;
 using BlingApiDailyConsult.Infrastructure;
 using BlingApiDailyConsult.Interfaces;
 using BlingApiDailyConsult.Repository;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using System;
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Threading.Tasks;
@@ -17,6 +19,9 @@ namespace BlingApiDailyConsult
     {
         static async Task Main(string[] args)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -31,10 +36,10 @@ namespace BlingApiDailyConsult
             // Teste autenticação
             //OAuthHelperGetAuthCode.RedirectToAuthUrl();
 
-
+            
 
             // Teste request e gravação no BD - pedidos de venda
-            /*try
+            try
             {
                 var testPedidovenda = new PedidoVendaFetcherTest(tokenManager, configuration);
                 await testPedidovenda.TesteReqInsertPedidoVenda();
@@ -54,12 +59,12 @@ namespace BlingApiDailyConsult
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
-            }*/
+            }
 
-
+            /*
 
             // Teste request e gravação no BD - Produtos
-            /*try
+            try
             {
                 var testProduto = new ProdutoFetcherTest(tokenManager, configuration);
                 await testProduto.TestReqInsertProduto();
@@ -79,12 +84,12 @@ namespace BlingApiDailyConsult
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
-            }*/
+            }
 
 
 
             // Teste request e gravação no BD - itens dos pedidos de venda
-            /*try
+            try
             {
                 var testItensVenda = new PedidoVendaItemTest(tokenManager, configuration);
                 await testItensVenda.TestReqInsertVendaItem();
@@ -104,12 +109,12 @@ namespace BlingApiDailyConsult
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
-            }*/
+            }
 
 
 
             // Teste request insert no BD - Pedido Compra
-            /*try
+            try
             {
                 var testPedidoCompra = new PedidoCompraFetcherTest(tokenManager, configuration);
                 await testPedidoCompra.TestReqInsertPedidoCompra();
@@ -129,12 +134,12 @@ namespace BlingApiDailyConsult
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
-            }*/
+            }
 
 
 
             // Test request e insert no BD - itens pedido compra
-            /*try
+            try
              {
                  var testItemPedidoCompra = new PedidoCompraItemTest(tokenManager, configuration);
                  await testItemPedidoCompra.TestReqInsertItemPedidoCompra();      
@@ -154,27 +159,14 @@ namespace BlingApiDailyConsult
              catch (Exception ex)
              {
                  Console.WriteLine($"Erro genérico: {ex.Message}");
-             }*/
+             }
 
+
+            // Teste request e insert no BD - Notas Fiscais
             try 
             { 
                 var testeNotaFiscal = new NotaFiscalFetcherTest(tokenManager, configuration);
-                await testeNotaFiscal.TestReqInsertNotaFiscal();
-
-                /*var notasFiscais = new BlingNotaFiscalFetcher(tokenManager);                
-                var notaFiscal = new BlingSingleNotaFiscalFetcher(tokenManager);
-                var nfeRep = new NotaFiscalRepository(configuration);
-
-                NotaFiscal[] notas = await notasFiscais.ExecuteAsync();
-                List<NotaFiscal> list = new List<NotaFiscal>();
-
-                foreach (var nota in notas)
-                {
-                    var retorno = await notaFiscal.GetSingleNotaFiscal(nota.Id);                    
-                    list.Add(retorno);
-                    nfeRep.Add(list);
-                    await Task.Delay(500); // realiza 2 requisições por segundo
-                }*/
+                await testeNotaFiscal.TestReqInsertNotaFiscal();                
             }
             catch (HttpRequestException ex)
             {
@@ -191,7 +183,37 @@ namespace BlingApiDailyConsult
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
-            }            
+            }
+            
+            stopwatch.Stop();
+            Console.WriteLine($"Tempo total de execução: {stopwatch.ElapsedMilliseconds} ms");
+
+            // Converte milissegundos para minutos
+            double minutos = stopwatch.ElapsedMilliseconds / 60000.0;
+
+            // Exibe o resultado
+            Console.WriteLine($"Tempo em minutos: {minutos} minutos");
+            
+            */
+
+
+            // Testes com XML
+
+
+            /*NotaFiscalRepository nfeRep = new NotaFiscalRepository(configuration);
+
+            IEnumerable<string> listXml = await nfeRep.GetXmlLink();
+
+            foreach (string str in listXml)
+            {
+                Console.WriteLine(str);
+                Console.WriteLine();
+                NfeProc nfeProc = await BlingXMLFetcher.GetXML(str);
+                Console.WriteLine(nfeProc.NFe.InfNFe.Total.ICMSTot.VTotTrib);
+                Console.WriteLine();
+            }
+            */
+            
         }
     }
 }

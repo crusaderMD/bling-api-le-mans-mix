@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlingApiDailyConsult")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df09128de99591d7403147848ffa3e0aeb10ce10")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28f3e6cf49ba085e34e210eeaf4f7c0480a9f580")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlingApiDailyConsult")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlingApiDailyConsult")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

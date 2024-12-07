@@ -25,12 +25,17 @@ namespace BlingApiDailyConsult.Tests
         public async Task TesteReqInsertPedidoVenda()
         {
 
-            // Armazena os pedidos
+            // Armazena os pedidos request da API
             Pedido[] pedidos = await _blingPedidoFetcher.ExecuteAsync();
+
+            // Obtem os Ids dos pedidos na tabela pedidos no BD
+            List<string> pedidosIds = (List<string>)await _pedidoVendaRepository.GetAllIdsAsync();
+
+            // Filtra os pedidos já inseridos no BD
+            pedidos = pedidos.Where(pedido => !pedidosIds.Contains(pedido.Id.ToString())).ToArray();
 
             // Salva os pedidos no BD
             _pedidoVendaRepository.Add(pedidos);
-
         }
     }
 }
