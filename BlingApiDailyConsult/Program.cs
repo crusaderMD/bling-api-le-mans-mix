@@ -4,14 +4,20 @@ using BlingApiDailyConsult.Infrastructure;
 using BlingApiDailyConsult.Interfaces;
 using BlingApiDailyConsult.Repository;
 using BlingApiDailyConsult.Tests;
+using HtmlAgilityPack;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+using Org.BouncyCastle.Crypto;
 using System;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace BlingApiDailyConsult
 {
@@ -36,10 +42,10 @@ namespace BlingApiDailyConsult
             // Teste autenticação
             //OAuthHelperGetAuthCode.RedirectToAuthUrl();
 
-            
+
 
             // Teste request e gravação no BD - pedidos de venda
-            try
+            /*try
             {
                 var testPedidovenda = new PedidoVendaFetcherTest(tokenManager, configuration);
                 await testPedidovenda.TesteReqInsertPedidoVenda();
@@ -60,9 +66,10 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
+            */
+
 
             /*
-
             // Teste request e gravação no BD - Produtos
             try
             {
@@ -86,8 +93,9 @@ namespace BlingApiDailyConsult
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
 
+            */
 
-
+            /*
             // Teste request e gravação no BD - itens dos pedidos de venda
             try
             {
@@ -110,9 +118,9 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
+            */
 
-
-
+            /*
             // Teste request insert no BD - Pedido Compra
             try
             {
@@ -213,7 +221,31 @@ namespace BlingApiDailyConsult
                 Console.WriteLine();
             }
             */
-            
+
+            /*ProdutoRepository proRep = new ProdutoRepository(configuration);
+            IEnumerable<string> idsList = await proRep.GetAllIdsAsync();
+            BlingSingleProdutoFetcher sProd = new BlingSingleProdutoFetcher(tokenManager);
+            List<Produto> proRet = new List<Produto>(); 
+
+            foreach (string id in idsList)
+            {                
+                Console.WriteLine(id);
+                long conv = long.Parse(id);
+
+                if (conv != 0)
+                {
+                    proRet.Add(await sProd.GetSingleProduto(conv));
+                    
+                }
+                await Task.Delay(500);
+            }     
+            */
+
+
+            var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
+
+            List<RegistroProdutoEstoque> registro = blingProdutoFetcher.GetRegistroProdutoEstoques("0");
+
         }
     }
 }

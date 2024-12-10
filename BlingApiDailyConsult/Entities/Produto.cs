@@ -31,5 +31,8 @@ namespace BlingApiDailyConsult.Entities
 
         [JsonPropertyName("formato")]
         public string? Formato { get; set; }
+
+        [JsonPropertyName("fornecedor")]
+        public Fornecedor? Fornecedor { get; set; }
     }
 }

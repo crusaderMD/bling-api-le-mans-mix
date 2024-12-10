@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,9 +103,44 @@ namespace BlingApiDailyConsult.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<string>> GetAllIdsAsync()
+        public async Task<IEnumerable<string>> GetAllIdsAsync()
         {
-            throw new NotImplementedException();
+            List<string> produtoIds = new List<string>();
+
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string sql = @"SELECT Id
+                                FROM produtos;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync()){
+
+                                if (reader.GetInt64("id").ToString() != null)
+                                {
+                                    produtoIds.Add(reader.GetInt64("id").ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Erro SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro genérico: " + ex.Message);
+            }
+            return produtoIds;
         }           
     }
 }

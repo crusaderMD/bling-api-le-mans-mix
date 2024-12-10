@@ -104,3 +104,9 @@ C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\obj\Debug\net8.0\ref
 C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\obj\Debug\net8.0\BlingApiDailyConsult.pdb
 C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\obj\Debug\net8.0\BlingApiDailyConsult.genruntimeconfig.cache
 C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\obj\Debug\net8.0\ref\BlingApiDailyConsult.dll
+C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\bin\Debug\net8.0\HtmlAgilityPack.dll
+C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\bin\Debug\net8.0\HtmlAgilityPack.CssSelectors.dll
+C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\bin\Debug\net8.0\selenium-manager\linux\selenium-manager
+C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\bin\Debug\net8.0\selenium-manager\macos\selenium-manager
+C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\bin\Debug\net8.0\selenium-manager\windows\selenium-manager.exe
+C:\Windows\Visual\BlingApiDailyConsult\BlingApiDailyConsult\bin\Debug\net8.0\WebDriver.dll

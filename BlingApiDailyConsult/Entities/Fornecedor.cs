@@ -29,5 +29,8 @@ namespace BlingApiDailyConsult.Entities
 
         [JsonPropertyName("tipo")]
         public string? Tipo { get; set; }
+
+        [JsonPropertyName("contato")]
+        public Contato? Contato { get; set; }
     }
 }
