@@ -43,9 +43,9 @@ namespace BlingApiDailyConsult
             //OAuthHelperGetAuthCode.RedirectToAuthUrl();
 
 
-
+            /*
             // Teste request e gravação no BD - pedidos de venda
-            /*try
+            try
             {
                 var testPedidovenda = new PedidoVendaFetcherTest(tokenManager, configuration);
                 await testPedidovenda.TesteReqInsertPedidoVenda();
@@ -92,8 +92,8 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
-
             */
+            
 
             /*
             // Teste request e gravação no BD - itens dos pedidos de venda
@@ -168,8 +168,9 @@ namespace BlingApiDailyConsult
              {
                  Console.WriteLine($"Erro genérico: {ex.Message}");
              }
+            */
 
-
+            /*
             // Teste request e insert no BD - Notas Fiscais
             try 
             { 
@@ -192,7 +193,9 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
+            */
             
+            /*
             stopwatch.Stop();
             Console.WriteLine($"Tempo total de execução: {stopwatch.ElapsedMilliseconds} ms");
 
@@ -201,13 +204,10 @@ namespace BlingApiDailyConsult
 
             // Exibe o resultado
             Console.WriteLine($"Tempo em minutos: {minutos} minutos");
-            
             */
-
-
+            
+            /*
             // Testes com XML
-
-
             /*NotaFiscalRepository nfeRep = new NotaFiscalRepository(configuration);
 
             IEnumerable<string> listXml = await nfeRep.GetXmlLink();
@@ -222,7 +222,10 @@ namespace BlingApiDailyConsult
             }
             */
 
-            /*ProdutoRepository proRep = new ProdutoRepository(configuration);
+
+            /*
+            // Obter Ids dos produtos
+            ProdutoRepository proRep = new ProdutoRepository(configuration);
             IEnumerable<string> idsList = await proRep.GetAllIdsAsync();
             BlingSingleProdutoFetcher sProd = new BlingSingleProdutoFetcher(tokenManager);
             List<Produto> proRet = new List<Produto>(); 
@@ -244,7 +247,7 @@ namespace BlingApiDailyConsult
 
             var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
 
-            List<RegistroProdutoEstoque> registro = blingProdutoFetcher.GetRegistroProdutoEstoques("0");
+            List<RegistroProdutoEstoque> registro = blingProdutoFetcher.GetRegistroProdutoEstoques("16051607639");
 
         }
     }

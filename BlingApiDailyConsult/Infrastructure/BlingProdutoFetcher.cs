@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
 
 namespace BlingApiDailyConsult.Infrastructure
 {
@@ -46,6 +47,8 @@ namespace BlingApiDailyConsult.Infrastructure
 
             IWebDriver? driver = null;
 
+            bool hasNextPage = true; // Controla o loop de Paginação
+
             try
             {
                 if (string.IsNullOrWhiteSpace(produtoId))
@@ -57,6 +60,11 @@ namespace BlingApiDailyConsult.Infrastructure
 
                 // Caminho para o driver do Chrome, alterar no futuro
                 var driverPath = @"C:\Users\lemans\Downloads\chromedriver-win64"; // Altere para o local onde estará seu chromedriver no futuro
+
+                if (!Directory.Exists(driverPath))
+                {
+                    throw new FileNotFoundException("O caminho para o ChromeDriver não existe ou está incorreto.", driverPath);
+                }
 
                 // Configurando opções para o ChromeDriver
                 var chromeOptions = new ChromeOptions();
@@ -97,99 +105,133 @@ namespace BlingApiDailyConsult.Infrastructure
                 Console.WriteLine("Cookies capturados:");
                 foreach (var cookie in cookies)
                 {
+                    driver.Manage().Cookies.AddCookie(cookie);
                     Console.WriteLine($"Nome: {cookie.Name}, Valor: {cookie.Value}");
-                }
+                }                
 
                 // Agora acessar a página de consulta
                 driver.Navigate().GoToUrl(targetUrl);
 
-                // Esperar um pouco para a página carregar
-                Thread.Sleep(5000);
-
-                // Pegar o HTML da página de consulta
-                string pageSource = driver.PageSource;
-
-                // Expressão regular para capturar o conteúdo até fechar o </div>
-                string pattern = @"<div id=""datatable""[^>]*>[\s\S]*?</div>";
-
-                Match match = Regex.Match(pageSource, pattern);
-
-                if (match.Success)
+                while (hasNextPage)
                 {
-                    // Captura o conteúdo da div 'datatable'
-                    string datatableContent = match.Value;
-                    Console.WriteLine("Conteúdo capturado da div 'datatable':\n" + datatableContent);
+                    // Esperar um pouco para a página carregar
+                    Thread.Sleep(5000);
 
-                    // Agora usar HtmlAgilityPack para fazer o parsing do conteúdo da div capturada
-                    HtmlDocument doc = new HtmlDocument();
-                    doc.LoadHtml(datatableContent);
+                    // Pegar o HTML da página de consulta
+                    string pageSource = driver.PageSource;
 
-                    // Selecionando as linhas da tabela
-                    var rows = doc.DocumentNode.SelectNodes("//table[@class='tabela-listagem']/tbody/tr");
+                    // Expressão regular para capturar o conteúdo até fechar o </div>
+                    string pattern = @"<div id=""datatable""[^>]*>[\s\S]*?</div>";
 
-                    foreach (var row in rows)
+                    Match match = Regex.Match(pageSource, pattern);
+
+                    if (match.Success)
                     {
-                        // Método auxiliar para capturar apenas o valor sem o rótulo
-                        string GetCellValue(HtmlNode cell)
+                        // Captura o conteúdo da div 'datatable'
+                        string datatableContent = match.Value;
+                        Console.WriteLine("Conteúdo capturado da div 'datatable':\n" + datatableContent);
+
+                        // Agora usar HtmlAgilityPack para fazer o parsing do conteúdo da div capturada
+                        HtmlDocument doc = new HtmlDocument();
+                        doc.LoadHtml(datatableContent);
+
+                        // Selecionando as linhas da tabela
+                        var rows = doc.DocumentNode.SelectNodes("//table[@class='tabela-listagem']/tbody/tr");
+
+                        if (rows != null)
                         {
-                            // Tenta localizar o segundo span, que contém o valor relevante
-                            var valueNode = cell.SelectSingleNode("./span[2]") ?? cell.SelectSingleNode("./span[1]");
-                            return valueNode?.InnerText.Trim() ?? "-";
+                            foreach (var row in rows)
+                            {
+                                // Método auxiliar para capturar apenas o valor sem o rótulo
+                                string GetCellValue(HtmlNode cell)
+                                {
+                                    // Tenta localizar o segundo span, que contém o valor relevante
+                                    var valueNode = cell.SelectSingleNode("./span[2]") ?? cell.SelectSingleNode("./span[1]");
+                                    return valueNode?.InnerText.Trim() ?? "-";
+                                }
+
+                                // Método auxiliar para capturar atributos dentro de uma célula
+                                string GetAttributeValue(HtmlNode cell, string xpath, string attributeName)
+                                {
+                                    var node = cell.SelectSingleNode(xpath);
+                                    return node?.GetAttributeValue(attributeName, "-") ?? "-";
+                                }
+
+                                // Captura os valores relevantes
+                                var data = GetCellValue(row.SelectSingleNode(".//td[1]"));
+                                var entrada = GetCellValue(row.SelectSingleNode(".//td[2]"));
+                                var saida = GetCellValue(row.SelectSingleNode(".//td[3]"));
+                                var precoVenda = GetCellValue(row.SelectSingleNode(".//td[4]"));
+                                var precoCompra = GetCellValue(row.SelectSingleNode(".//td[5]"));
+                                var precoCusto = GetCellValue(row.SelectSingleNode(".//td[6]"));
+                                var observacao = GetCellValue(row.SelectSingleNode(".//td[7]"));
+                                // Captura da origem
+                                var origemNode = row.SelectSingleNode(".//td[8]");
+                                var origem = GetCellValue(origemNode);
+
+                                // Captura do atributo 'tipo' na origem
+                                var tipo = GetAttributeValue(origemNode, ".//span[@tipo]", "tipo");
+
+                                // Mapeia os dados extraídos para a entidade
+                                var registro = new RegistroProdutoEstoque
+                                {
+                                    Data = data,
+                                    Entrada = entrada,
+                                    Saida = saida,
+                                    PrecoVenda = precoVenda,
+                                    PrecoCompra = precoCompra,
+                                    PrecoCusto = precoCusto,
+                                    Observacao = observacao,
+                                    Origem = origem,
+                                    Tipo = tipo
+                                };
+
+                                // Adiciona o registro à lista
+                                registros.Add(registro);
+                            }
+
+                            // Exibindo os registros
+                            foreach (var registro in registros)
+                            {
+                                Console.WriteLine($"Data: {registro.Data}, Entrada: {registro.Entrada}, " +
+                                    $"Saída: {registro.Saida}, Preço Venda: {registro.PrecoVenda}, " +
+                                    $"Preço Compra: {registro.PrecoCompra}, Preço Custo: {registro.PrecoCusto}, " +
+                                    $"Observação: {registro.Observacao}, Origem: {registro.Origem}, Tipo: {registro.Tipo}");
+                            }
+                        }                            
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Div 'datatable' não encontrada para o produtoId: {produtoId}.");
+                    }
+                    try
+                    {
+                        // Localizar o botão "Próxima"
+                        var botaoProxima = driver.FindElement(By.XPath("//li[not(contains(@class, 'disabled'))]//span[contains(text(),'Próxima')]"));
+
+                        if (botaoProxima != null && botaoProxima.Displayed)
+                        {
+                            botaoProxima.Click();
+                            Console.WriteLine("Navegando para a próxima página.");
                         }
-
-                        // Método auxiliar para capturar atributos dentro de uma célula
-                        string GetAttributeValue(HtmlNode cell, string xpath, string attributeName)
+                        else
                         {
-                            var node = cell.SelectSingleNode(xpath);
-                            return node?.GetAttributeValue(attributeName, "-") ?? "-";
+                            Console.WriteLine("Botão 'Próxima' não está disponível.");
+                            hasNextPage = false;
                         }
-
-                        // Captura os valores relevantes
-                        var data = GetCellValue(row.SelectSingleNode(".//td[1]"));
-                        var entrada = GetCellValue(row.SelectSingleNode(".//td[2]"));
-                        var saida = GetCellValue(row.SelectSingleNode(".//td[3]"));
-                        var precoVenda = GetCellValue(row.SelectSingleNode(".//td[4]"));
-                        var precoCompra = GetCellValue(row.SelectSingleNode(".//td[5]"));
-                        var precoCusto = GetCellValue(row.SelectSingleNode(".//td[6]"));
-                        var observacao = GetCellValue(row.SelectSingleNode(".//td[7]"));
-                        // Captura da origem
-                        var origemNode = row.SelectSingleNode(".//td[8]");
-                        var origem = GetCellValue(origemNode);
-
-                        // Captura do atributo 'tipo' na origem
-                        var tipo = GetAttributeValue(origemNode, ".//span[@tipo]", "tipo");
-
-                        // Mapeia os dados extraídos para a entidade
-                        var registro = new RegistroProdutoEstoque
-                        {
-                            Data = data,
-                            Entrada = entrada,
-                            Saida = saida,
-                            PrecoVenda = precoVenda,
-                            PrecoCompra = precoCompra,
-                            PrecoCusto = precoCusto,
-                            Observacao = observacao,
-                            Origem = origem,
-                            Tipo = tipo
-                        };
-
-                        // Adiciona o registro à lista
-                        registros.Add(registro);
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        Console.WriteLine("Erro ao localizar o botão 'Próxima': O elemento não foi encontrado.");
+                        hasNextPage = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Erro ao navegar para a próxima página: {ex.Message}");
+                        hasNextPage = false;
                     }
 
-                    // Exibindo os registros
-                    foreach (var registro in registros)
-                    {
-                        Console.WriteLine($"Data: {registro.Data}, Entrada: {registro.Entrada}, " +
-                            $"Saída: {registro.Saida}, Preço Venda: {registro.PrecoVenda}, " +
-                            $"Preço Compra: {registro.PrecoCompra}, Preço Custo: {registro.PrecoCusto}, " +
-                            $"Observação: {registro.Observacao}, Origem: {registro.Origem}, Tipo: {registro.Tipo}");
-                    }
                 }
-                else
-                {
-                    Console.WriteLine($"Div 'datatable' não encontrada para o produtoId: {produtoId}.");
-                }                
             }
             catch (Exception ex)
             {
@@ -199,6 +241,7 @@ namespace BlingApiDailyConsult.Infrastructure
             {
                 // Garantir que o driver seja encerrado fechando o navegador
                 driver?.Quit();
+                driver?.Dispose(); // Adicionado para liberar recursos completamente
             }
             return registros;
         }
