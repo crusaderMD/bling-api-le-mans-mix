@@ -130,7 +130,6 @@ namespace BlingApiDailyConsult.Repository
                         }
                     }
                 }
-
             }
             catch (MySqlException ex)
             {

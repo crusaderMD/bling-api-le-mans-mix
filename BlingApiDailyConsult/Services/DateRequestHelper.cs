@@ -21,6 +21,9 @@ namespace BlingApiDailyConsult.Services
             endDate = startDate.AddMonths(1).AddDays(-1); // Último dia do mês
         }
 
+        public string GetStartDate() { return $"{startDate:yyyy-MM-dd}"; }
+        public string GetEndDate() { return $"{endDate:yyyy-MM-dd}"; }
+
         // Método que retorna o intervalo de datas formatado para adicionar a URL
         public string GetDateQueryString()
         {

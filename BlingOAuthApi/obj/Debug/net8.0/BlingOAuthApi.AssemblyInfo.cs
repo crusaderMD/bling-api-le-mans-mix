@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlingOAuthApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ddeb78b534a7952f1a3dd9a1162c9928921a6bb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80284ff759b789bd5a32b5af092204c135247d81")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlingOAuthApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlingOAuthApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

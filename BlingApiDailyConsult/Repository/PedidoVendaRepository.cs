@@ -1,5 +1,6 @@
 ﻿using BlingApiDailyConsult.Entities;
 using BlingApiDailyConsult.Interfaces;
+using BlingApiDailyConsult.Services;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -105,6 +106,11 @@ namespace BlingApiDailyConsult.Repository
         // Obtem os Ids dos pedidos salvos no BD
         public async Task<IEnumerable<string>> GetAllIdsAsync()
         {
+            DateRequestHelper dateRequestRelper = new();
+
+            string dataInicial = dateRequestRelper.GetStartDate();
+            string dataFinal = dateRequestRelper.GetEndDate();
+
             List<string> ids = new List<string>();
 
             try
@@ -113,9 +119,10 @@ namespace BlingApiDailyConsult.Repository
                 {
                     await conn.OpenAsync();
 
-                    string sql = @"SELECT id 
-                                FROM pedidos
-                                WHERE id NOT IN (SELECT pedido_id FROM itens_do_pedido);";
+                    string sql = @$"SELECT id 
+                                FROM pedidos                                
+                                WHERE data BETWEEN '{dataInicial}'
+                                AND '{dataFinal}';";
 
                     using (var cmd = new MySqlCommand(sql, conn))
                     {

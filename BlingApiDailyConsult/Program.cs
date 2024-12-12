@@ -95,7 +95,7 @@ namespace BlingApiDailyConsult
             */
             
 
-            /*
+            
             // Teste request e gravação no BD - itens dos pedidos de venda
             try
             {
@@ -118,7 +118,7 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
-            */
+            
 
             /*
             // Teste request insert no BD - Pedido Compra
@@ -245,9 +245,9 @@ namespace BlingApiDailyConsult
             */
 
 
-            var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
+            //var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
 
-            List<RegistroProdutoEstoque> registro = blingProdutoFetcher.GetRegistroProdutoEstoques("16051607639");
+            //List<RegistroProdutoEstoque> registro = blingProdutoFetcher.GetRegistroProdutoEstoques("16051607639");
 
         }
     }

@@ -19,17 +19,17 @@ namespace BlingApiDailyConsult.Infrastructure
         // URL da API Bling com os parâmetros para consulta de produtos
         private const string baseUrl = "https://api.bling.com.br/Api/v3/produtos?";
 
-        private readonly HttpClientRequestHelper _httpClientHelper;        
+        private readonly HttpClientRequestHelper _httpClientHelper;
         private readonly PaginationHelper _paginationHelper;
 
         public BlingProdutoFetcher(TokenManager tokenManager)
         {
-            _httpClientHelper = new HttpClientRequestHelper(tokenManager);            
+            _httpClientHelper = new HttpClientRequestHelper(tokenManager);
             _paginationHelper = new PaginationHelper();
         }
 
         public async Task<Produto[]> ExecuteAsync()
-        {          
+        {
             return (await _paginationHelper.FetchAllPagesAsync<Produto>(baseUrl, async (paginatedUrl) =>
             {
                 var apiProdutoResponse = await _httpClientHelper.FetchDataAsync<ApiResponse<Produto>>(paginatedUrl);
@@ -107,7 +107,7 @@ namespace BlingApiDailyConsult.Infrastructure
                 {
                     driver.Manage().Cookies.AddCookie(cookie);
                     Console.WriteLine($"Nome: {cookie.Name}, Valor: {cookie.Value}");
-                }                
+                }
 
                 // Agora acessar a página de consulta
                 driver.Navigate().GoToUrl(targetUrl);
@@ -189,16 +189,7 @@ namespace BlingApiDailyConsult.Infrastructure
                                 // Adiciona o registro à lista
                                 registros.Add(registro);
                             }
-
-                            // Exibindo os registros
-                            foreach (var registro in registros)
-                            {
-                                Console.WriteLine($"Data: {registro.Data}, Entrada: {registro.Entrada}, " +
-                                    $"Saída: {registro.Saida}, Preço Venda: {registro.PrecoVenda}, " +
-                                    $"Preço Compra: {registro.PrecoCompra}, Preço Custo: {registro.PrecoCusto}, " +
-                                    $"Observação: {registro.Observacao}, Origem: {registro.Origem}, Tipo: {registro.Tipo}");
-                            }
-                        }                            
+                        }
                     }
                     else
                     {
@@ -242,6 +233,14 @@ namespace BlingApiDailyConsult.Infrastructure
                 // Garantir que o driver seja encerrado fechando o navegador
                 driver?.Quit();
                 driver?.Dispose(); // Adicionado para liberar recursos completamente
+            }
+            // Exibindo os registros
+            foreach (var registro in registros)
+            {
+                Console.WriteLine($"Data: {registro.Data}, Entrada: {registro.Entrada}, " +
+                    $"Saída: {registro.Saida}, Preço Venda: {registro.PrecoVenda}, " +
+                    $"Preço Compra: {registro.PrecoCompra}, Preço Custo: {registro.PrecoCusto}, " +
+                    $"Observação: {registro.Observacao}, Origem: {registro.Origem}, Tipo: {registro.Tipo}");
             }
             return registros;
         }
