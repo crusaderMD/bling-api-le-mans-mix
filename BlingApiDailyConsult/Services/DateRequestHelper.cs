@@ -1,34 +1,34 @@
-﻿using System.Security.Cryptography;
+﻿using System;
 
 namespace BlingApiDailyConsult.Services
 {
     public class DateRequestHelper
     {
         private readonly DateTime today;
-        private  DateTime startDate;
-        private DateTime endDate;
+        private readonly DateTime startDate;
+        private readonly DateTime endDate;
 
-        public DateRequestHelper(int? year = null, int? month = null)
+        public DateRequestHelper()
         {
             today = DateTime.Now; // Data atual
-            
-            // Define o ano e mês, com valores padrão para o mês atual
-            int targetYear = year ?? today.Year;
-            int tagetMonth = month ?? today.Month;
-
-            // Configura a data de início e fim do mês
-            startDate = new DateTime(targetYear, tagetMonth, 1); // Primeiro dia do mês
-            endDate = startDate.AddMonths(1).AddDays(-1); // Último dia do mês
+            endDate = today; // A data final é hoje
+            startDate = today.AddDays(-30); // A data inicial é 30 dias antes de hoje
         }
 
-        public string GetStartDate() { return $"{startDate:yyyy-MM-dd}"; }
-        public string GetEndDate() { return $"{endDate:yyyy-MM-dd}"; }
+        public string GetStartDate()
+        {
+            return $"{startDate:yyyy-MM-dd}";
+        }
 
-        // Método que retorna o intervalo de datas formatado para adicionar a URL
+        public string GetEndDate()
+        {
+            return $"{endDate:yyyy-MM-dd}";
+        }
+
+        // Método que retorna o intervalo de datas formatado para adicionar à URL
         public string GetDateQueryString()
         {
             return $"&dataInicial={startDate:yyyy-MM-dd}&dataFinal={endDate:yyyy-MM-dd}";
         }
     }
 }
-

@@ -43,7 +43,7 @@ namespace BlingApiDailyConsult
             //OAuthHelperGetAuthCode.RedirectToAuthUrl();
 
 
-            /*
+            
             // Teste request e gravação no BD - pedidos de venda
             try
             {
@@ -66,7 +66,7 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
-            */
+            
 
 
             /*
@@ -95,7 +95,7 @@ namespace BlingApiDailyConsult
             */
             
 
-            
+            /*
             // Teste request e gravação no BD - itens dos pedidos de venda
             try
             {
@@ -118,7 +118,7 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
-            
+            */
 
             /*
             // Teste request insert no BD - Pedido Compra
