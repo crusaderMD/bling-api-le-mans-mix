@@ -8,12 +8,12 @@ namespace BlingApiDailyConsult.Entities
 {
     public class RegistroProdutoEstoque
     {
-        public string? Data { get; set; }
+        public DateTime? Data { get; set; }
         public string? Entrada { get; set; }
         public string? Saida { get; set; }
-        public string? PrecoVenda { get; set; }
-        public string? PrecoCompra { get; set; }
-        public string? PrecoCusto { get; set; }
+        public decimal? PrecoVenda { get; set; }
+        public decimal? PrecoCompra { get; set; }
+        public decimal? PrecoCusto { get; set; }
         public string? Observacao { get; set; }
         public string? Origem { get; set; }
         public string? Tipo { get; set; }

@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BlingApiDailyConsult.Infrastructure
 {
@@ -21,6 +22,8 @@ namespace BlingApiDailyConsult.Infrastructure
 
         private readonly HttpClientRequestHelper _httpClientHelper;
         private readonly PaginationHelper _paginationHelper;
+
+        public BlingProdutoFetcher() { }
 
         public BlingProdutoFetcher(TokenManager tokenManager)
         {
@@ -172,15 +175,21 @@ namespace BlingApiDailyConsult.Infrastructure
                                 // Captura do atributo 'tipo' na origem
                                 var tipo = GetAttributeValue(origemNode, ".//span[@tipo]", "tipo");
 
+                                // Método auxiliar para verificar o valor
+                                decimal ParseOrDefault(string value, decimal defaultValue = 0)
+                                {
+                                    return value != "-" ? decimal.Parse(value) : defaultValue;
+                                }
+
                                 // Mapeia os dados extraídos para a entidade
                                 var registro = new RegistroProdutoEstoque
                                 {
-                                    Data = data,
+                                    Data = DateTime.Parse(data),
                                     Entrada = entrada,
-                                    Saida = saida,
-                                    PrecoVenda = precoVenda,
-                                    PrecoCompra = precoCompra,
-                                    PrecoCusto = precoCusto,
+                                    Saida = saida,                                    
+                                    PrecoVenda = ParseOrDefault(precoVenda),
+                                    PrecoCompra = ParseOrDefault(precoCompra),
+                                    PrecoCusto = ParseOrDefault(precoCusto),
                                     Observacao = observacao,
                                     Origem = origem,
                                     Tipo = tipo

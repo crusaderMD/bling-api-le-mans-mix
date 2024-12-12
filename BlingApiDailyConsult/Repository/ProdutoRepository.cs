@@ -83,7 +83,7 @@ namespace BlingApiDailyConsult.Repository
                 }
                 else
                 {
-                    Console.WriteLine($"Prosuto: {produto?.Id} não pode ser gravado!");
+                    Console.WriteLine($"Produto: {produto?.Id} não pode ser gravado!");
                 }
             }
         }
@@ -140,6 +140,46 @@ namespace BlingApiDailyConsult.Repository
                 Console.WriteLine("Erro genérico: " + ex.Message);
             }
             return produtoIds;
-        }           
+        }
+
+        public async Task<Dictionary<string, string>> GetIdsAndNamesAsync()
+        {
+            Dictionary<string, string> produtoInfo = new Dictionary<string, string>();
+
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string sql = @"SELECT Id, nome
+                                FROM produtos;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+
+                                if (reader.GetInt64("id").ToString() != null)
+                                {
+                                    produtoInfo.Add(reader.GetInt64("id").ToString(), reader.GetString("nome"));                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Erro SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro genérico: " + ex.Message);
+            }
+            return produtoInfo;
+        }
     }
 }

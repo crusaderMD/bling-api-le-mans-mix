@@ -43,7 +43,7 @@ namespace BlingApiDailyConsult
             //OAuthHelperGetAuthCode.RedirectToAuthUrl();
 
 
-            
+            /*
             // Teste request e gravação no BD - pedidos de venda
             try
             {
@@ -66,7 +66,7 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
-            
+            */
 
 
             /*
@@ -93,7 +93,7 @@ namespace BlingApiDailyConsult
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
             */
-            
+
 
             /*
             // Teste request e gravação no BD - itens dos pedidos de venda
@@ -194,18 +194,8 @@ namespace BlingApiDailyConsult
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
             */
-            
-            /*
-            stopwatch.Stop();
-            Console.WriteLine($"Tempo total de execução: {stopwatch.ElapsedMilliseconds} ms");
+                       
 
-            // Converte milissegundos para minutos
-            double minutos = stopwatch.ElapsedMilliseconds / 60000.0;
-
-            // Exibe o resultado
-            Console.WriteLine($"Tempo em minutos: {minutos} minutos");
-            */
-            
             /*
             // Testes com XML
             /*NotaFiscalRepository nfeRep = new NotaFiscalRepository(configuration);
@@ -223,31 +213,51 @@ namespace BlingApiDailyConsult
             */
 
 
-            /*
+
             // Obter Ids dos produtos
-            ProdutoRepository proRep = new ProdutoRepository(configuration);
-            IEnumerable<string> idsList = await proRep.GetAllIdsAsync();
-            BlingSingleProdutoFetcher sProd = new BlingSingleProdutoFetcher(tokenManager);
-            List<Produto> proRet = new List<Produto>(); 
+            try
+            {
+                var produtoHistoricoTest = new ProdutoHistoricoTest(configuration);
+                await produtoHistoricoTest.TestReqInsertHistoricoProduto();
 
-            foreach (string id in idsList)
-            {                
-                Console.WriteLine(id);
-                long conv = long.Parse(id);
+                /*BlingProdutoFetcher _blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
+                ProdutoHistoricoRepository _produtoHistoricoRepository = new ProdutoHistoricoRepository(configuration);
 
-                if (conv != 0)
+                IEnumerable<RegistroProdutoEstoque> produtoHistorico = _blingProdutoFetcher.GetRegistroProdutoEstoques("15962853061");
+
+                Console.WriteLine("Total elements: " + produtoHistorico.LongCount());
+
+                foreach (var registroLine in produtoHistorico)
                 {
-                    proRet.Add(await sProd.GetSingleProduto(conv));
-                    
-                }
-                await Task.Delay(500);
-            }     
-            */
+                    await _produtoHistoricoRepository.Add("15962853061", "Abraçadeira preta 4,8x250mm - THOMPSON", registroLine);
+                }*/
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Http error: {ex.Message}");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Erro de Argumento: {ex.Message}");
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Erro SQL: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro genérico: {ex.Message}");
+            }
+            
+            stopwatch.Stop();
+            Console.WriteLine($"Tempo total de execução: {stopwatch.ElapsedMilliseconds} ms");
 
+            // Converte milissegundos para minutos
+            double minutos = stopwatch.ElapsedMilliseconds / 60000.0;
 
-            //var blingProdutoFetcher = new BlingProdutoFetcher(tokenManager);
-
-            //List<RegistroProdutoEstoque> registro = blingProdutoFetcher.GetRegistroProdutoEstoques("16051607639");
+            // Exibe o resultado
+            Console.WriteLine($"Tempo em minutos: {minutos} minutos");
+            
 
         }
     }
