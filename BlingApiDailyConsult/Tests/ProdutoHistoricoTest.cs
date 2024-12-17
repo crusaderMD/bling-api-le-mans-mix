@@ -30,6 +30,7 @@ namespace BlingApiDailyConsult.Tests
 
             foreach (var id in produtoIdsAndNameList)
             {
+                Console.WriteLine();
                 Console.WriteLine("Obtendo o histórico do Produto: " + id);
 
                 produtoHistorico = _blingProdutoFetcher.GetRegistroProdutoEstoques(id.Key);
@@ -40,6 +41,13 @@ namespace BlingApiDailyConsult.Tests
                 {
                     await _produtoHistoricoRepository.Add(id.Key, id.Value, registroLine);
                 }
+            }
+
+            List<string> idErrorList = _blingProdutoFetcher.getIdErrorList();
+
+            foreach (string id in idErrorList)
+            {
+                Console.WriteLine(id);
             }
         }
     }

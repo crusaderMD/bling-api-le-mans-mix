@@ -23,6 +23,8 @@ namespace BlingApiDailyConsult.Infrastructure
         private readonly HttpClientRequestHelper _httpClientHelper;
         private readonly PaginationHelper _paginationHelper;
 
+        private List<string> idErrorList = new List<string>();
+
         public BlingProdutoFetcher() { }
 
         public BlingProdutoFetcher(TokenManager tokenManager)
@@ -46,7 +48,7 @@ namespace BlingApiDailyConsult.Infrastructure
         public List<RegistroProdutoEstoque> GetRegistroProdutoEstoques(string produtoId)
         {
             // Lista de registros que será retornada
-            List<RegistroProdutoEstoque> registros = new List<RegistroProdutoEstoque>();
+            List<RegistroProdutoEstoque> registros = new List<RegistroProdutoEstoque>();            
 
             IWebDriver? driver = null;
 
@@ -79,7 +81,7 @@ namespace BlingApiDailyConsult.Infrastructure
 
 
                 // Inicializar o ChromeDriver com as opções
-                driver = new ChromeDriver(driverPath, chromeOptions); // se retirar o chromeOptions, abre o navegador
+                driver = new ChromeDriver(driverPath); // se retirar o chromeOptions, abre o navegador
 
                 // URL de login
                 var loginUrl = "https://www.bling.com.br/login";
@@ -94,6 +96,8 @@ namespace BlingApiDailyConsult.Infrastructure
 
                 emailField.SendKeys("lemansmix");
                 passwordField.SendKeys("Compras-159luiz");
+
+                Thread.Sleep(5000); // Você pode aumentar o tempo se necessário para o login ser concluído
 
                 // Encontrar o botão de login e clicar
                 var loginButton = driver.FindElement(By.CssSelector("button[type='submit']"));
@@ -203,6 +207,7 @@ namespace BlingApiDailyConsult.Infrastructure
                     else
                     {
                         Console.WriteLine($"Div 'datatable' não encontrada para o produtoId: {produtoId}.");
+                        addIdErrorList(produtoId);
                     }
                     try
                     {
@@ -252,6 +257,16 @@ namespace BlingApiDailyConsult.Infrastructure
                     $"Observação: {registro.Observacao}, Origem: {registro.Origem}, Tipo: {registro.Tipo}");
             }
             return registros;
+        }
+
+        private void addIdErrorList(string id)
+        {            
+            idErrorList.Add(id);            
+        }
+
+        public List<string> getIdErrorList()
+        {
+            return idErrorList;
         }
     }
 }
