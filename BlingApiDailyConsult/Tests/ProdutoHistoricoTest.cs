@@ -14,13 +14,15 @@ namespace BlingApiDailyConsult.Tests
     internal class ProdutoHistoricoTest
     {
         private readonly ProdutoRepository _produtoRepository;
-        private readonly BlingProdutoFetcher _blingProdutoFetcher;
+        private readonly BlingProdutoHistoricoFetcher _blingProdutoHistoricoFetcher;
         private readonly ProdutoHistoricoRepository _produtoHistoricoRepository;
+
+        int produtoCount = 0;
 
         public ProdutoHistoricoTest(IConfiguration configuration)
         {
             _produtoRepository = new ProdutoRepository(configuration);
-            _blingProdutoFetcher = new BlingProdutoFetcher();
+            _blingProdutoHistoricoFetcher = new BlingProdutoHistoricoFetcher();
             _produtoHistoricoRepository = new ProdutoHistoricoRepository(configuration);
         }
         public async Task TestReqInsertHistoricoProduto()
@@ -33,7 +35,7 @@ namespace BlingApiDailyConsult.Tests
                 Console.WriteLine();
                 Console.WriteLine("Obtendo o histórico do Produto: " + id);
 
-                produtoHistorico = _blingProdutoFetcher.GetRegistroProdutoEstoques(id.Key);
+                produtoHistorico = _blingProdutoHistoricoFetcher.GetRegistroProdutoEstoque(id.Key);
 
                 Console.WriteLine("Total elements: " + produtoHistorico.LongCount());
 
@@ -41,14 +43,20 @@ namespace BlingApiDailyConsult.Tests
                 {
                     await _produtoHistoricoRepository.Add(id.Key, id.Value, registroLine);
                 }
+
+                produtoCount++;
             }
 
-            List<string> idErrorList = _blingProdutoFetcher.getIdErrorList();
+            List<string> idErrorList = _blingProdutoHistoricoFetcher.getIdErrorList();
 
             foreach (string id in idErrorList)
             {
                 Console.WriteLine(id);
             }
+
+            _blingProdutoHistoricoFetcher.Dispose();
+
+            Console.WriteLine(produtoCount);
         }
     }
 }

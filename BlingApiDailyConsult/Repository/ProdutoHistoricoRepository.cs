@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +15,12 @@ namespace BlingApiDailyConsult.Repository
     internal class ProdutoHistoricoRepository
     {
         private readonly string? _connectionString;
+        private readonly ProdutoRepository _produtoRepository;
 
         public ProdutoHistoricoRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _produtoRepository = new ProdutoRepository(configuration);
         }
 
         public async Task Add(string produtoId, string produtoNome, RegistroProdutoEstoque registroLineProduto)
@@ -84,9 +88,44 @@ namespace BlingApiDailyConsult.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<string>> GetAllIdsAsync()
+        public async Task<IEnumerable<string>> GetAllIdsAsync()
         {
-            throw new NotImplementedException();
+            List<string> produtoIds = new List<string>();
+
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string sql = @"SELECT Id
+                                FROM produtos_historico;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+
+                                if (reader.GetInt64("id").ToString() != null)
+                                {
+                                    produtoIds.Add(reader.GetInt64("id").ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Erro SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro genérico: " + ex.Message);
+            }
+            return produtoIds;
         }
 
         public IEnumerable<RegistroProdutoEstoque> GetById(int id)
@@ -97,6 +136,75 @@ namespace BlingApiDailyConsult.Repository
         public void Update(IEnumerable<RegistroProdutoEstoque> entity)
         {
             throw new NotImplementedException();
+        }
+
+        // Provisório Modificar depois
+        public async Task<List<string>> GetMissingProdutos()
+        {
+            
+            IEnumerable<string> prodIds = await _produtoRepository.GetAllIdsAsync();
+            IEnumerable<string> prodHistIds = await GetAllIdsAsync();
+
+            List<string> prodFaltante = new List<string>();
+
+            foreach (var id in prodIds)
+            {
+                if (!prodHistIds.Contains(id))
+                {
+                    prodFaltante.Add(id);
+                }
+            }
+
+            return prodFaltante;
+        }
+
+        public async Task<Dictionary<string, Tuple<string, DateTime>>> GetIdNameDateAsync(string id)
+        {
+            Dictionary<string, Tuple<string, DateTime>> dict = new Dictionary<string, Tuple<string, DateTime>>();
+
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string sql = @$"WITH cte AS (
+                            SELECT 
+                                id,
+                                MAX(data) AS data_mais_recente
+                            FROM produtos_historico
+                            GROUP BY id
+                            )
+                            SELECT ph.id, ph.nome, ph.data
+                            FROM produtos_historico ph
+                            JOIN cte ON ph.id = cte.id AND ph.data = cte.data_mais_recente
+                            WHERE ph.id = {id};";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+
+                                if (reader.GetInt64("id").ToString() != null)
+                                {
+                                    dict.Add(reader.GetInt64("Id").ToString(), Tuple.Create(reader.GetString("nome"), reader.GetDateTime("data")));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Erro SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro genérico: " + ex.Message);
+            }
+            return dict;
         }
     }
 }

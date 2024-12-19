@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\Windows\\Visual\\BlingApiDailyConsult\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\infrastructure\\blingprodutofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\infrastructure\\blingprodutofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\repository\\produtorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\repository\\produtorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\infrastructure\\blingprodutohistoricofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\infrastructure\\blingprodutohistoricofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\tests\\produtohistoricotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\tests\\produtohistoricotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\repository\\produtohistoricorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\repository\\produtohistoricorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\tests\\produtohistoricotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\tests\\produtohistoricotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\infrastructure\\blingprodutofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\infrastructure\\blingprodutofetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\entities\\registroprodutoestoque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\entities\\registroprodutoestoque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|c:\\windows\\visual\\blingapidailyconsult\\blingapidailyconsult\\repository\\produtorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C7984FD-65DB-407F-9AA7-00348D74AE03}|BlingApiDailyConsult\\BlingApiDailyConsult.csproj|solutionrelative:blingapidailyconsult\\repository\\produtorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BlingProdutoHistoricoFetcher.cs",
+              "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingProdutoHistoricoFetcher.cs",
+              "RelativeDocumentMoniker": "BlingApiDailyConsult\\Infrastructure\\BlingProdutoHistoricoFetcher.cs",
+              "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingProdutoHistoricoFetcher.cs",
+              "RelativeToolTip": "BlingApiDailyConsult\\Infrastructure\\BlingProdutoHistoricoFetcher.cs",
+              "ViewState": "AgIAAOMAAAAAAAAAAAAIwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T18:33:57.82Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -48,9 +65,10 @@
               "RelativeDocumentMoniker": "BlingApiDailyConsult\\Entities\\RegistroProdutoEstoque.cs",
               "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Entities\\RegistroProdutoEstoque.cs",
               "RelativeToolTip": "BlingApiDailyConsult\\Entities\\RegistroProdutoEstoque.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwA8AAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-12T15:31:32.024Z"
+              "WhenOpened": "2024-12-12T15:31:32.024Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -60,58 +78,59 @@
               "RelativeDocumentMoniker": "BlingApiDailyConsult\\Tests\\ProdutoHistoricoTest.cs",
               "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Tests\\ProdutoHistoricoTest.cs",
               "RelativeToolTip": "BlingApiDailyConsult\\Tests\\ProdutoHistoricoTest.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAowCAAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-12T13:13:34.998Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "ProdutoHistoricoRepository.cs",
               "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\ProdutoHistoricoRepository.cs",
               "RelativeDocumentMoniker": "BlingApiDailyConsult\\Repository\\ProdutoHistoricoRepository.cs",
               "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\ProdutoHistoricoRepository.cs",
               "RelativeToolTip": "BlingApiDailyConsult\\Repository\\ProdutoHistoricoRepository.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAADgvz8AAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAALIAAAAAAAAAAAAmwLEAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T13:22:47.748Z"
+              "WhenOpened": "2024-12-11T13:22:47.748Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "ProdutoRepository.cs",
               "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\ProdutoRepository.cs",
               "RelativeDocumentMoniker": "BlingApiDailyConsult\\Repository\\ProdutoRepository.cs",
               "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Repository\\ProdutoRepository.cs",
               "RelativeToolTip": "BlingApiDailyConsult\\Repository\\ProdutoRepository.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAWwJAAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAcwIgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-09T17:59:15.61Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "BlingProdutoFetcher.cs",
               "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingProdutoFetcher.cs",
               "RelativeDocumentMoniker": "BlingApiDailyConsult\\Infrastructure\\BlingProdutoFetcher.cs",
               "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Infrastructure\\BlingProdutoFetcher.cs",
               "RelativeToolTip": "BlingApiDailyConsult\\Infrastructure\\BlingProdutoFetcher.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAmwGMAAABqAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowC0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-10T13:12:43.195Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Program.cs",
               "RelativeDocumentMoniker": "BlingApiDailyConsult\\Program.cs",
               "ToolTip": "C:\\Windows\\Visual\\BlingApiDailyConsult\\BlingApiDailyConsult\\Program.cs",
               "RelativeToolTip": "BlingApiDailyConsult\\Program.cs",
-              "ViewState": "AgIAAOUAAAAAAAAAAAAAAOsAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAkBAAAAAAAAAAAgwBQBAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-06T18:58:29.657Z",
               "EditorCaption": ""
