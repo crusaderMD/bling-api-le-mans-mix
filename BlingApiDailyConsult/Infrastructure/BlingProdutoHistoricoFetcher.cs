@@ -78,7 +78,7 @@ namespace BlingApiDailyConsult.Infrastructure
                     var targetUrl = $"https://www.bling.com.br/estoque.php?buscaid={produtoId}";
 
                     // Apagar depois
-                    Console.WriteLine($"URL atual antes da navegação: {_driver?.Url}");                    
+                    Console.WriteLine($"URL atual antes da navegação: {_driver?.Url}");
 
                     _driver?.Navigate().GoToUrl(targetUrl);
 
@@ -105,7 +105,7 @@ namespace BlingApiDailyConsult.Infrastructure
                 addIdErrorList(produtoId); // Armazena o produto com erro
             }
             return registros;
-        }      
+        }
 
         private IWebDriver? InitializeDriver()
         {
@@ -132,7 +132,7 @@ namespace BlingApiDailyConsult.Infrastructure
             Console.WriteLine("Iniciando login...");
             _driver?.Navigate().GoToUrl(loginUrl);
 
-           
+
 
             // Uso de WebDriverWait para aguardar os elementos de login
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
@@ -146,7 +146,7 @@ namespace BlingApiDailyConsult.Infrastructure
 
                 var passwordField = wait.Until(d => d.FindElement(By.CssSelector("input[type='password'].InputText-input"))); // Seletor de classe para o campo de senha
 
-                passwordField?.SendKeys(password);                
+                passwordField?.SendKeys(password);
 
                 // Encontrar o botão de login e clicar
                 var loginButton = wait.Until(d => d.FindElement(By.CssSelector("button[type='submit']")));
@@ -269,11 +269,11 @@ namespace BlingApiDailyConsult.Infrastructure
                                 // Adiciona o registro à lista
                                 registros.Add(registro);
                             }
-                            
+
                         }
                         else
                         {
-                            Console.WriteLine($"Div 'datatable' não encontrada");                            
+                            Console.WriteLine($"Div 'datatable' não encontrada");
                         }
                         try
                         {
@@ -300,13 +300,13 @@ namespace BlingApiDailyConsult.Infrastructure
                         {
                             Console.WriteLine($"Erro ao navegar para a próxima página: {ex.Message}");
                             hasNextPage = false;
-                        }                        
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Erro ao processar produtoId: {ex.Message}");
-                }                
+                }
             }
             // Retornar a lista completa de registros após processar todas as páginas
             return registros;
@@ -336,6 +336,5 @@ namespace BlingApiDailyConsult.Infrastructure
             Console.WriteLine($"Esperando {delay / 1000} segundos para simular interação humana...");
             Thread.Sleep(delay);
         }
-
     }
 }

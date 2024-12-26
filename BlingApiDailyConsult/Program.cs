@@ -235,12 +235,12 @@ namespace BlingApiDailyConsult
             {
                 Console.WriteLine($"Erro genérico: {ex.Message}");
             }
-
-            */
-
-            
-            var prodHistoricoRepository = new ProdutoHistoricoRepository(configuration);
             /*
+            
+
+            /*
+            var prodHistoricoRepository = new ProdutoHistoricoRepository(configuration);
+            
             var produtoHistorico = new BlingProdutoHistoricoFetcher();
 
             var produtoIdAndName = new ProdutoRepository(configuration);
@@ -266,7 +266,7 @@ namespace BlingApiDailyConsult
                     }
                 }
             }
-            */
+            
 
             Dictionary<string, Tuple<string, DateTime>> dict =  await prodHistoricoRepository.GetIdNameDateAsync("15971597021");
 
@@ -280,6 +280,8 @@ namespace BlingApiDailyConsult
 
             Console.WriteLine(counter);
 
+            */
+
             stopwatch.Stop();
             Console.WriteLine($"Tempo total de execução: {stopwatch.ElapsedMilliseconds} ms");
 
@@ -288,7 +290,7 @@ namespace BlingApiDailyConsult
 
             // Exibe o resultado
             Console.WriteLine($"Tempo em minutos: {minutos} minutos");
-
+            
 
         }
     }
